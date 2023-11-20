@@ -10,6 +10,7 @@ import { PigeonController } from './common/engine/controllers/PigeonController.j
 import {
     Camera,
     Model,
+    Mesh,
     Node,
     Transform,
 } from './common/engine/core.js';
@@ -59,6 +60,26 @@ light.addComponent(new Light({
     ambient: 0.3,
 }));
 scene.addChild(light);
+
+// Load scena_scena.gltf
+const scenaLoader = new GLTFLoader();
+await scenaLoader.load('common/models/butast_primer.gltf');
+const okolje = scenaLoader.loadScene(scenaLoader.defaultScene);
+
+const mesto = scenaLoader.loadNode('Cube.006')
+console.log(mesto); // log the background node to see if it exists
+
+// Add the background to the scene
+if (mesto) {
+    mesto.addComponent(new Transform({
+        translation: [0, 0, 0, 1],
+        scale: [1, 1, 1],
+    }));
+    scene.addChild(mesto);
+}
+
+
+
 
 function update(time, dt) {
     pigeonController.update();
