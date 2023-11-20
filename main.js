@@ -50,7 +50,14 @@ pigeon.addComponent(new Transform({
     rotation: [0,0,0,1],
 }));
 scene.addChild(pigeon);
-const pigeonController = new PigeonController(pigeon);
+
+// target
+await gltfLoader.load('./common/models/target3.gltf')
+const target = gltfLoader.loadNode('Target');
+target.addComponent(new Transform())
+scene.addChild(target);
+
+const pigeonController = new PigeonController(pigeon, camera, target);
 
 const light = new Node();
 light.addComponent(new Transform({
@@ -62,24 +69,24 @@ light.addComponent(new Light({
 scene.addChild(light);
 
 // Load scena_scena.gltf
+/* 
 const scenaLoader = new GLTFLoader();
 await scenaLoader.load('common/models/butast_primer.gltf');
 const okolje = scenaLoader.loadScene(scenaLoader.defaultScene);
-
-const mesto = scenaLoader.loadNode('Cube.006')
-console.log(mesto); // log the background node to see if it exists
+ */
+await gltfLoader.load('common/models/butast_primer.gltf');
+const mesto = gltfLoader.loadNode('Cube.006')
+//console.log(mesto); // log the background node to see if it exists
 
 // Add the background to the scene
 if (mesto) {
     mesto.addComponent(new Transform({
-        translation: [0, 0, 0, 1],
-        scale: [1, 1, 1],
+        translation: [-70, -2, 20, 1],
+        scale: [10, 10, 10],
+        rotation: [0, 0, 0, 1]
     }));
     scene.addChild(mesto);
 }
-
-
-
 
 function update(time, dt) {
     pigeonController.update();
