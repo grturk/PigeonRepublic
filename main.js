@@ -99,7 +99,7 @@ const mesto = gltfLoader.loadNode('Cube.006')
 // Add the background to the scene
 if (mesto) {
     mesto.addComponent(new Transform({
-        translation: [-70, -2, 20, 1],
+        translation: [0, -30, 0, 0],
         scale: [10, 10, 10],
         rotation: [0, 0, 0, 1]
     }));
