@@ -27,7 +27,15 @@ await gltfLoader.load('common/models/pigeon2.gltf');
 
 const scene = gltfLoader.loadScene(gltfLoader.defaultScene);
 
+
+// camera
+
 const camera = scene.find(node => node.getComponentOfType(Camera));
+camera.getComponentOfType(Camera).far=1500;
+camera.getComponentOfType(Camera).near=15;
+
+
+//pigeon, wings animation
 
 const wing1 = gltfLoader.loadNode('flying.001')
 wing1.addComponent(new RotateAnimator(wing1, {
@@ -51,13 +59,20 @@ pigeon.addComponent(new Transform({
 }));
 scene.addChild(pigeon);
 
+
 // target
+
 await gltfLoader.load('./common/models/target3.gltf')
 const target = gltfLoader.loadNode('Target');
-target.addComponent(new Transform())
+target.addComponent(new Transform({
+    translation: [0, 0, -6, 1],
+}));
 scene.addChild(target);
 
-const pigeonController = new PigeonController(pigeon, camera, target);
+const pigeonController = new PigeonController(pigeon, target);
+
+
+// light
 
 const light = new Node();
 light.addComponent(new Transform({
@@ -67,6 +82,9 @@ light.addComponent(new Light({
     ambient: 0.3,
 }));
 scene.addChild(light);
+
+
+// town
 
 // Load scena_scena.gltf
 /* 
@@ -87,6 +105,8 @@ if (mesto) {
     }));
     scene.addChild(mesto);
 }
+
+
 
 function update(time, dt) {
     pigeonController.update();

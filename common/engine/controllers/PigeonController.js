@@ -1,22 +1,24 @@
 import { Transform } from '../core.js';
 
 export class PigeonController {
-    constructor(pigeon, camera, target) {
+    constructor(pigeon, target) {
         this.pigeon = pigeon;
-        this.camera = camera;
+        //this.camera = camera;
         this.target = target;
         this.speed = 0.1;
         this.tiltAngle = 0.1;
         this.pigeonTransformComponent = this.pigeon.getComponentOfType(Transform);
-        this.cameraTransformComponent = this.camera.getComponentOfType(Transform);
+        //this.cameraTransformComponent = this.camera.getComponentOfType(Transform);
         this.targetTransformComponent = this.target.getComponentOfType(Transform);
     }
 
     update() {
         this.handleInput();
-        this.moveForward();
+        //this.moveForward();
     }
 
+    // premikalo se bo mesto ne golob
+    /*  
     moveForward() {
         if(this.pigeonTransformComponent) {
             this.pigeonTransformComponent.translation[2] += this.speed/2;
@@ -29,7 +31,8 @@ export class PigeonController {
             this.targetTransformComponent.translation[2] += this.speed/2;
         }
     }
-
+    */
+   
     handleInput() {
         
         if(this.pigeonTransformComponent) {
@@ -83,3 +86,7 @@ window.addEventListener('keydown', (e) => {;
 window.addEventListener('keyup', (e) => {
     keys[e.key] = false;
 });
+
+//za strelanje -> subscribe ob pritisku sproži
+//v main controller.addEventListener
+// class
