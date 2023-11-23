@@ -93,7 +93,7 @@ await scenaLoader.load('common/models/butast_primer.gltf');
 const okolje = scenaLoader.loadScene(scenaLoader.defaultScene);
  */
 await gltfLoader.load('common/models/butast_primer.gltf');
-const mesto = gltfLoader.loadNode('Cube.006')
+const mesto = gltfLoader.loadNode('City')
 //console.log(mesto); // log the background node to see if it exists
 
 // Add the background to the scene
