@@ -6,7 +6,8 @@ import { GLTFLoader } from './common/engine/loaders/GLTFLoader.js';
 import { OrbitController } from './common/engine/controllers/OrbitController.js';
 import { RotateAnimator } from './common/engine/animators/RotateAnimator.js';
 import { LinearAnimator } from './common/engine/animators/LinearAnimator.js';
-import { PigeonController } from './common/engine/controllers/PigeonController.js'
+import { PigeonController } from './common/engine/controllers/PigeonController.js';
+import { CityController } from './PremikanjeMesta.js';
 import {
     Camera,
     Model,
@@ -44,7 +45,7 @@ wing1.addComponent(new RotateAnimator(wing1, {
     duration: 1,
     loop: true,
 }));
-const wing2 = gltfLoader.loadNode('flying.002')
+const wing2 = gltfLoader.loadNode('flying.002');
 wing1.addComponent(new RotateAnimator(wing2, {
     startRotation: [0, 0, 0, 1],
     endRotation: [0, 0, 0.2, 0],
@@ -62,7 +63,7 @@ scene.addChild(pigeon);
 
 // target
 
-await gltfLoader.load('./common/models/target3.gltf')
+await gltfLoader.load('./common/models/target3.gltf');
 const target = gltfLoader.loadNode('Target');
 target.addComponent(new Transform({
     translation: [0, 0, -6, 1],
@@ -70,7 +71,6 @@ target.addComponent(new Transform({
 scene.addChild(target);
 
 const pigeonController = new PigeonController(pigeon, target);
-
 
 // light
 
@@ -93,23 +93,24 @@ await scenaLoader.load('common/models/butast_primer.gltf');
 const okolje = scenaLoader.loadScene(scenaLoader.defaultScene);
  */
 await gltfLoader.load('common/models/butast_primer.gltf');
-const mesto = gltfLoader.loadNode('City')
+const mesto = gltfLoader.loadNode('City');
 //console.log(mesto); // log the background node to see if it exists
 
 // Add the background to the scene
 if (mesto) {
     mesto.addComponent(new Transform({
-        translation: [0, -30, 0, 0],
+        translation: [160, -30, 0, 0],
         scale: [10, 10, 10],
         rotation: [0, 0, 0, 1]
     }));
     scene.addChild(mesto);
 }
 
-
+const cityController = new CityController(mesto);
 
 function update(time, dt) {
     pigeonController.update();
+    cityController.update();
     scene.traverse(node => {
         for (const component of node.components) {
             component.update?.(time, dt);
