@@ -49,6 +49,7 @@ export function createTextureFromData(device, {
     mipLevelCount = 1,
     flipY = false,
 }) {
+    debugger;
     const texture = device.createTexture({
         format,
         size,
