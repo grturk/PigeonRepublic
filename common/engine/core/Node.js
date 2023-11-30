@@ -4,8 +4,12 @@ export class Node {
         this.children = [];
         this.parent = null;
         this.components = [];
+        this.name = [];
     }
 
+    setName(name) {
+        this.name = name;
+    }
     addChild(node) {
         node.parent?.removeChild(node);
         this.children.push(node);
