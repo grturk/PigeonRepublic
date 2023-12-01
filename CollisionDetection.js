@@ -93,7 +93,7 @@ export class CollisionDetection {
         if (!isColliding) {
             return;
         }
-
+        /*
         // Move node A minimally to avoid collision.
         const diffa = vec3.sub(vec3.create(), bBox.max, aBox.min);
         const diffb = vec3.sub(vec3.create(), aBox.max, bBox.min);
@@ -131,6 +131,7 @@ export class CollisionDetection {
         }
 
         vec3.add(transform.translation, transform.translation, minDirection);
+        */
     }
 
 }

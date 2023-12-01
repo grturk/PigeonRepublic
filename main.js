@@ -5,7 +5,6 @@ import { OrbitController } from './common/engine/controllers/OrbitController.js'
 import { RotateAnimator } from './common/engine/animators/RotateAnimator.js';
 import { LinearAnimator } from './common/engine/animators/LinearAnimator.js';
 import { PigeonController } from './common/engine/controllers/PigeonController.js';
-import { CityController } from './PremikanjeMesta.js';
 import {
     Camera,
     Model,
@@ -28,9 +27,6 @@ const renderer = new Renderer(canvas);
 await renderer.initialize(); 
 
 
-const pigeonLoader = new GLTFLoader();
-await pigeonLoader.load('common/models/pigeon2.gltf');
-const scene = pigeonLoader.loadScene(pigeonLoader.defaultScene);
 
 
 const pigeonLoader = new GLTFLoader();
@@ -76,11 +72,6 @@ pigeon.aabb = {
 
 // target
 
-await pigeonLoader.load('./common/models/target3.gltf');
-const target = pigeonLoader.loadNode('Target');
-
-target.addComponent(new Transform({
-
 const targetLoader = new GLTFLoader();
 await targetLoader.load('common/models/target3.gltf');
 const target = targetLoader.loadNode('Target');
@@ -103,10 +94,10 @@ scene.addChild(light);
 
 // town
 const townLoader1 = new GLTFLoader();
-await townLoader1.load('common/models/butast_primer.gltf');
-const town1 = townLoader1.loadNode('City'); 
+await townLoader1.load('common/models/butast_primer_loceno.gltf');
+const town1 = townLoader1.loadNode('cesta'); 
 
-const cesta_1 = townLoader1.loadNode('cesta');
+//const cesta_1 = townLoader1.loadNode('cesta');
 const bloki_levo_002_1 = townLoader1.loadNode('bloki__levo.002');
 const bloki_levo_003_1 = townLoader1.loadNode('bloki__levo.003');
 const bloki_levo_004_1 = townLoader1.loadNode('bloki__levo.004');
@@ -122,7 +113,7 @@ town1.aabb = {
     min: [-0.716, -0.716, -0.716],
     max: [0.716, 0.716, 0.716]
 }
-cesta_1.isStatic = true;
+//cesta_1.isStatic = true;
 bloki_levo_002_1.isStatic = true;
 bloki_levo_003_1.isStatic = true;
 bloki_levo_004_1.isStatic = true;
@@ -137,10 +128,10 @@ person_1.isStatic = true;
 
 
 const townLoader2 = new GLTFLoader();
-await townLoader2.load('common/models/butast_primer.gltf');
-const town2 = townLoader2.loadNode('City'); 
+await townLoader2.load('common/models/butast_primer_loceno.gltf');
+const town2 = townLoader2.loadNode('cesta'); 
 
-const cesta_2 = townLoader2.loadNode('cesta');
+//const cesta_2 = townLoader2.loadNode('cesta');
 const bloki_levo_002_2 = townLoader2.loadNode('bloki__levo.002');
 const bloki_levo_003_2 = townLoader2.loadNode('bloki__levo.003');
 const bloki_levo_004_2 = townLoader2.loadNode('bloki__levo.004');
@@ -156,7 +147,7 @@ town2.aabb = {
     min: [-0.716, -0.716, -0.716],
     max: [0.716, 0.716, 0.716]
 }
-cesta_2.isStatic = true;
+//cesta_2.isStatic = true;
 bloki_levo_002_2.isStatic = true;
 bloki_levo_003_2.isStatic = true;
 bloki_levo_004_2.isStatic = true;
@@ -171,10 +162,10 @@ person_2.isStatic = true;
 
 
 const townLoader3 = new GLTFLoader();
-await townLoader3.load('common/models/butast_primer.gltf');
-const town3 = townLoader3.loadNode('City'); 
+await townLoader3.load('common/models/butast_primer_loceno.gltf');
+const town3 = townLoader3.loadNode('cesta'); 
 
-const cesta_3 = townLoader3.loadNode('cesta');
+//const cesta_3 = townLoader3.loadNode('cesta');
 const bloki_levo_002_3 = townLoader3.loadNode('bloki__levo.002');
 const bloki_levo_003_3 = townLoader3.loadNode('bloki__levo.003');
 const bloki_levo_004_3 = townLoader3.loadNode('bloki__levo.004');
@@ -190,7 +181,7 @@ town3.aabb = {
     min: [-0.716, -0.716, -0.716],
     max: [0.716, 0.716, 0.716]
 }
-cesta_3.isStatic = true;
+//cesta_3.isStatic = true;
 bloki_levo_002_3.isStatic = true;
 bloki_levo_003_3.isStatic = true;
 bloki_levo_004_3.isStatic = true;
@@ -269,8 +260,6 @@ function update(time, dt) {
             component.update?.(time, dt);
         }
     });
-    pigeonController.update();
-    cityController.update();
 
     collision.update(time, dt);
 }
