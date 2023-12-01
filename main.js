@@ -15,25 +15,37 @@ import {
 } from './common/engine/core.js';
 import { Renderer } from './Renderer.js';
 import { Light } from './Light.js';
+
 import { calculateAxisAlignedBoundingBox, mergeAxisAlignedBoundingBoxes } from './common/engine/core/MeshUtils.js';
 import { CollisionDetection } from './CollisionDetection.js';
+
+import { Dropper } from './Dropper.js';
+import { InfinityTown } from './InfinityTown.js';
+
 
 const canvas = document.querySelector('canvas');
 const renderer = new Renderer(canvas);
 await renderer.initialize(); 
 
+
 const pigeonLoader = new GLTFLoader();
 await pigeonLoader.load('common/models/pigeon2.gltf');
 const scene = pigeonLoader.loadScene(pigeonLoader.defaultScene);
 
+
+const pigeonLoader = new GLTFLoader();
+await pigeonLoader.load('common/models/pigeon5.gltf');
+
+const gltfLoader = new GLTFLoader();
+const scene = pigeonLoader.loadScene(pigeonLoader.defaultScene);
 // camera
 const camera = scene.find(node => node.getComponentOfType(Camera));
 camera.getComponentOfType(Camera).far=1500;
 camera.getComponentOfType(Camera).near=15;
-
-
 //pigeon, wings animation
-const wing1 = pigeonLoader.loadNode('flying.001');
+
+const wing1 = pigeonLoader.loadNode('flying.001')
+
 wing1.addComponent(new RotateAnimator(wing1, {
     startRotation: [0, 0, 0, 1],
     endRotation: [0, 0, -0.2, 0],
@@ -41,15 +53,13 @@ wing1.addComponent(new RotateAnimator(wing1, {
     loop: true,
 }));
 
-
-const wing2 = pigeonLoader.loadNode('flying.002');
-wing2.addComponent(new RotateAnimator(wing2, {
+const wing2 = pigeonLoader.loadNode('flying.002')
+wing1.addComponent(new RotateAnimator(wing2, {
     startRotation: [0, 0, 0, 1],
     endRotation: [0, 0, 0.2, 0],
     duration: 1,
     loop: true,
 }));
-
 
 const pigeon = pigeonLoader.loadNode('flying');
 pigeon.addComponent(new Transform({
@@ -69,10 +79,14 @@ pigeon.aabb = {
 await pigeonLoader.load('./common/models/target3.gltf');
 const target = pigeonLoader.loadNode('Target');
 
- target.addComponent(new Transform({
+target.addComponent(new Transform({
+
+const targetLoader = new GLTFLoader();
+await targetLoader.load('common/models/target3.gltf');
+const target = targetLoader.loadNode('Target');
+target.addComponent(new Transform({
     translation: [0, 0, -6, 1],
 }));
-
 scene.addChild(target);
 
 
@@ -88,66 +102,114 @@ scene.addChild(light);
 
 
 // town
-const mestoLoader = new GLTFLoader();
-await mestoLoader.load('common/models/butast_primer_loceno.gltf');
-const mesto = mestoLoader.loadNode('cesta');
+const townLoader1 = new GLTFLoader();
+await townLoader1.load('common/models/butast_primer.gltf');
+const town1 = townLoader1.loadNode('City'); 
 
-//debugger
-const cesta = mestoLoader.loadNode('cesta');
-const bloki_levo_002 = mestoLoader.loadNode('bloki__levo.002');
-const bloki_levo_003 = mestoLoader.loadNode('bloki__levo.003');
-const bloki_levo_004 = mestoLoader.loadNode('bloki__levo.004');
-const bloki_desno_001 = mestoLoader.loadNode('bloki_desno.001');
-const bloki_desno_002 = mestoLoader.loadNode('bloki_desno.002');
-const bloki_desno_003 = mestoLoader.loadNode('bloki_desno.003');
-const bloki_desno_004 = mestoLoader.loadNode('bloki_desno.004');
-const hofer_ovira = mestoLoader.loadNode('hofer_ovira');
-const lidl_ovira  = mestoLoader.loadNode('lidl_ovira');
-const person = mestoLoader.loadNode('Person');
-
-/* console.log(bloki_levo);
-console.log(bloki_desno);
-console.log(hofer_ovira);
-console.log(lidl_ovira);
-console.log(mesto);
-console.log(person); */
-mesto.isDynamic = true;
-mesto.aabb = {
+const cesta_1 = townLoader1.loadNode('cesta');
+const bloki_levo_002_1 = townLoader1.loadNode('bloki__levo.002');
+const bloki_levo_003_1 = townLoader1.loadNode('bloki__levo.003');
+const bloki_levo_004_1 = townLoader1.loadNode('bloki__levo.004');
+const bloki_desno_001_1 = townLoader1.loadNode('bloki_desno.001');
+const bloki_desno_002_1 = townLoader1.loadNode('bloki_desno.002');
+const bloki_desno_003_1 = townLoader1.loadNode('bloki_desno.003');
+const bloki_desno_004_1 = townLoader1.loadNode('bloki_desno.004');
+const hofer_ovira_1 = townLoader1.loadNode('hofer_ovira');
+const lidl_ovira_1  = townLoader1.loadNode('lidl_ovira');
+const person_1 = townLoader1.loadNode('Person');
+town1.isDynamic = true;
+town1.aabb = {
     min: [-0.716, -0.716, -0.716],
     max: [0.716, 0.716, 0.716]
 }
-cesta.isStatic = true;
-bloki_levo_002.isStatic = true;
-bloki_levo_003.isStatic = true;
-bloki_levo_004.isStatic = true;
-bloki_desno_001.isStatic = true;
-bloki_desno_002.isStatic = true;
-bloki_desno_003.isStatic = true;
-bloki_desno_004.isStatic = true;
-hofer_ovira.isStatic = true;
-lidl_ovira.isStatic = true;
-person.isStatic = true;
-target.isStatic = true;
+cesta_1.isStatic = true;
+bloki_levo_002_1.isStatic = true;
+bloki_levo_003_1.isStatic = true;
+bloki_levo_004_1.isStatic = true;
+bloki_desno_001_1.isStatic = true;
+bloki_desno_002_1.isStatic = true;
+bloki_desno_003_1.isStatic = true;
+bloki_desno_004_1.isStatic = true;
+hofer_ovira_1.isStatic = true;
+lidl_ovira_1.isStatic = true;
+person_1.isStatic = true;
+//target_1.isStatic = true;
 
-mesto.addComponent(new Transform({
-    translation: [160, -30, 0, 0],
-    scale: [10, 10, 10],
-    rotation: [0, 0, 0, 1],
-}));
 
-//mesto.isStatic = true;
-scene.addChild(mesto);
+const townLoader2 = new GLTFLoader();
+await townLoader2.load('common/models/butast_primer.gltf');
+const town2 = townLoader2.loadNode('City'); 
 
-/* mesto.aabb = {
-    min: [-0.2, -0.2, -0.2],
-    max: [0.2, 0.2, 0.2]
-} */
+const cesta_2 = townLoader2.loadNode('cesta');
+const bloki_levo_002_2 = townLoader2.loadNode('bloki__levo.002');
+const bloki_levo_003_2 = townLoader2.loadNode('bloki__levo.003');
+const bloki_levo_004_2 = townLoader2.loadNode('bloki__levo.004');
+const bloki_desno_001_2 = townLoader2.loadNode('bloki_desno.001');
+const bloki_desno_002_2 = townLoader2.loadNode('bloki_desno.002');
+const bloki_desno_003_2 = townLoader2.loadNode('bloki_desno.003');
+const bloki_desno_004_2 = townLoader2.loadNode('bloki_desno.004');
+const hofer_ovira_2 = townLoader2.loadNode('hofer_ovira');
+const lidl_ovira_2  = townLoader2.loadNode('lidl_ovira');
+const person_2 = townLoader2.loadNode('Person');
+town2.isDynamic = true;
+town2.aabb = {
+    min: [-0.716, -0.716, -0.716],
+    max: [0.716, 0.716, 0.716]
+}
+cesta_2.isStatic = true;
+bloki_levo_002_2.isStatic = true;
+bloki_levo_003_2.isStatic = true;
+bloki_levo_004_2.isStatic = true;
+bloki_desno_001_2.isStatic = true;
+bloki_desno_002_2.isStatic = true;
+bloki_desno_003_2.isStatic = true;
+bloki_desno_004_2.isStatic = true;
+hofer_ovira_2.isStatic = true;
+lidl_ovira_2.isStatic = true;
+person_2.isStatic = true;
+//target_2.isStatic = true;
 
-const cityController = new CityController(mesto);
+
+const townLoader3 = new GLTFLoader();
+await townLoader3.load('common/models/butast_primer.gltf');
+const town3 = townLoader3.loadNode('City'); 
+
+const cesta_3 = townLoader3.loadNode('cesta');
+const bloki_levo_002_3 = townLoader3.loadNode('bloki__levo.002');
+const bloki_levo_003_3 = townLoader3.loadNode('bloki__levo.003');
+const bloki_levo_004_3 = townLoader3.loadNode('bloki__levo.004');
+const bloki_desno_001_3 = townLoader3.loadNode('bloki_desno.001');
+const bloki_desno_002_3 = townLoader3.loadNode('bloki_desno.002');
+const bloki_desno_003_3 = townLoader3.loadNode('bloki_desno.003');
+const bloki_desno_004_3 = townLoader3.loadNode('bloki_desno.004');
+const hofer_ovira_3 = townLoader3.loadNode('hofer_ovira');
+const lidl_ovira_3  = townLoader3.loadNode('lidl_ovira');
+const person_3 = townLoader3.loadNode('Person');
+town3.isDynamic = true;
+town3.aabb = {
+    min: [-0.716, -0.716, -0.716],
+    max: [0.716, 0.716, 0.716]
+}
+cesta_3.isStatic = true;
+bloki_levo_002_3.isStatic = true;
+bloki_levo_003_3.isStatic = true;
+bloki_levo_004_3.isStatic = true;
+bloki_desno_001_3.isStatic = true;
+bloki_desno_002_3.isStatic = true;
+bloki_desno_003_3.isStatic = true;
+bloki_desno_004_3.isStatic = true;
+hofer_ovira_3.isStatic = true;
+lidl_ovira_3.isStatic = true;
+person_3.isStatic = true;
+//target_3.isStatic = true;
+
+
+scene.addChild(town1);
+scene.addChild(town2);
+scene.addChild(town3);
+
 const pigeonController = new PigeonController(pigeon, target);
 const collision = new CollisionDetection(scene);
-
-
 
 scene.traverse(node => {
     const model = node.getComponentOfType(Model);
@@ -181,10 +243,27 @@ scene.traverse(node => {
     }
 });
 
+const towns = [town1, town2, town3]
+
+const infinityTown = new InfinityTown(scene, towns);
+
+window.addEventListener('feceDrop', handleFeceDrop);
+
+const feceLoader = new GLTFLoader();
+await feceLoader.load('common/models/drek3.gltf');
+const fece = feceLoader.loadNode('Cube');
+const dropper = new Dropper(scene, fece, pigeon);
+
+function handleFeceDrop(event) {
+    const { position, initialSpeed } = event.detail;
+    dropper.dropFece(position, initialSpeed);
+}
 
 
 function update(time, dt) {
-    
+    pigeonController.update();
+    dropper.update(dt);
+    infinityTown.update(dt);
     scene.traverse(node => {
         for (const component of node.components) {
             component.update?.(time, dt);

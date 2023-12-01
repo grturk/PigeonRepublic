@@ -32,7 +32,7 @@ export class PigeonController {
         }
     }
     */
-   
+
     handleInput() {
         
         if(this.pigeonTransformComponent) {
@@ -60,6 +60,9 @@ export class PigeonController {
                 this.setPreviousTranslation();
             }
         }
+        if (keys[' ']) {
+            this.emitFeceDropEvent();
+        }
 
     }
     
@@ -74,6 +77,17 @@ export class PigeonController {
             this.pigeonTransformComponent.translation[1] += (this.previousTranslation[1] - this.pigeonTransformComponent.translation[1]) * 0.05;
   
         }
+    }
+
+    emitFeceDropEvent() {
+        console.log("emitting")
+        const event = new CustomEvent('feceDrop', {
+            detail: {
+                position: this.pigeonTransformComponent.translation.slice(),
+                initialSpeed: 10
+            }
+        });
+        window.dispatchEvent(event);
     }
 }
 
