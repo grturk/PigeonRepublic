@@ -60,8 +60,8 @@ pigeon.addComponent(new Transform({
 pigeon.isDynamic = true;
 scene.addChild(pigeon);
 pigeon.aabb = {
-    min: [-0.2, -0.2, -0.2],
-    max: [0.2, 0.2, 0.2]
+    min: [-0.5, -0.5, -0.5],
+    max: [0.5, 0.5, 0.5]
 }
 
 // target
@@ -89,12 +89,18 @@ scene.addChild(light);
 
 // town
 const mestoLoader = new GLTFLoader();
-await mestoLoader.load('common/models/butast_primer1.gltf');
+await mestoLoader.load('common/models/butast_primer_loceno.gltf');
 const mesto = mestoLoader.loadNode('cesta');
 
 //debugger
-const bloki_levo = mestoLoader.loadNode('bloki__levo');
-const bloki_desno = mestoLoader.loadNode('bloki_desno');
+const cesta = mestoLoader.loadNode('cesta');
+const bloki_levo_002 = mestoLoader.loadNode('bloki__levo.002');
+const bloki_levo_003 = mestoLoader.loadNode('bloki__levo.003');
+const bloki_levo_004 = mestoLoader.loadNode('bloki__levo.004');
+const bloki_desno_001 = mestoLoader.loadNode('bloki_desno.001');
+const bloki_desno_002 = mestoLoader.loadNode('bloki_desno.002');
+const bloki_desno_003 = mestoLoader.loadNode('bloki_desno.003');
+const bloki_desno_004 = mestoLoader.loadNode('bloki_desno.004');
 const hofer_ovira = mestoLoader.loadNode('hofer_ovira');
 const lidl_ovira  = mestoLoader.loadNode('lidl_ovira');
 const person = mestoLoader.loadNode('Person');
@@ -105,12 +111,23 @@ console.log(hofer_ovira);
 console.log(lidl_ovira);
 console.log(mesto);
 console.log(person); */
-
-bloki_levo.isStatic = true;
-bloki_desno.isStatic = true;
+mesto.isDynamic = true;
+mesto.aabb = {
+    min: [-0.716, -0.716, -0.716],
+    max: [0.716, 0.716, 0.716]
+}
+cesta.isStatic = true;
+bloki_levo_002.isStatic = true;
+bloki_levo_003.isStatic = true;
+bloki_levo_004.isStatic = true;
+bloki_desno_001.isStatic = true;
+bloki_desno_002.isStatic = true;
+bloki_desno_003.isStatic = true;
+bloki_desno_004.isStatic = true;
 hofer_ovira.isStatic = true;
 lidl_ovira.isStatic = true;
 person.isStatic = true;
+target.isStatic = true;
 
 mesto.addComponent(new Transform({
     translation: [160, -30, 0, 0],
@@ -118,13 +135,13 @@ mesto.addComponent(new Transform({
     rotation: [0, 0, 0, 1],
 }));
 
-mesto.isDynamic = true;
+//mesto.isStatic = true;
 scene.addChild(mesto);
 
-mesto.aabb = {
+/* mesto.aabb = {
     min: [-0.2, -0.2, -0.2],
     max: [0.2, 0.2, 0.2]
-}
+} */
 
 const cityController = new CityController(mesto);
 const pigeonController = new PigeonController(pigeon, target);
@@ -133,26 +150,37 @@ const collision = new CollisionDetection(scene);
 
 
 scene.traverse(node => {
-    
     const model = node.getComponentOfType(Model);
     if (!model) {
         return;
     }
-    const boxes = model.primitives.map(primitive => calculateAxisAlignedBoundingBox(primitive.mesh));
-    
-    if (boxes.length >= 2) {
-        node.aabb = mergeAxisAlignedBoundingBoxes([boxes[0]]);
-    }
-    // Obstacles
-    if (boxes.length == 1) {
-        node.aabb = mergeAxisAlignedBoundingBoxes(boxes);
-    }
 
-    /* const models = scene.filter(node => node.getComponentOfType(Model));
-    models.forEach((model) => {
-    console.log(model, model.aabb);
-    }); */
+    const boxes = model.primitives.map(primitive => calculateAxisAlignedBoundingBox(primitive.mesh));
+    node.aabb = mergeAxisAlignedBoundingBoxes(boxes);
+
+    // Log bounding box details with node name
+    if (node.aabb) {
+        console.log(`Node AABB: ${node.name || 'Unnamed Node'}`, {
+            min: node.aabb.min,
+            max: node.aabb.max,
+            width: node.aabb.max[0] - node.aabb.min[0],
+            height: node.aabb.max[1] - node.aabb.min[1],
+            depth: node.aabb.max[2] - node.aabb.min[2],
+        });
+    } else {
+        // Log individual bounding boxes if no merging is performed
+        boxes.forEach((box, index) => {
+            console.log(`${node.name || 'Unnamed Node'} - Bounding Box ${index + 1}:`, {
+                min: box.min,
+                max: box.max,
+                width: box.max[0] - box.min[0],
+                height: box.max[1] - box.min[1],
+                depth: box.max[2] - box.min[2],
+            });
+        });
+    }
 });
+
 
 
 function update(time, dt) {
@@ -164,6 +192,7 @@ function update(time, dt) {
     });
     pigeonController.update();
     cityController.update();
+
     collision.update(time, dt);
 }
 
