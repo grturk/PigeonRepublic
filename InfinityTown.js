@@ -17,7 +17,7 @@ export class InfinityTown {
             town.getComponentOfType(Transform).translation = [0, 0, offset];
             town.getComponentOfType(Transform).scale = [10, 10, 10];
             this.scene.addChild(town);
-            //console.log(`Town added at position: ${offset}`, town);   
+            
             offset += this.townSize;
         }
     }
@@ -34,21 +34,8 @@ export class InfinityTown {
         const lastTown = townsSortedByZ[townsSortedByZ.length - 1];
         
         if (townsSortedByZ[0].getComponentOfType(Transform).translation[2] < this.threshold) {
-            townsSortedByZ[0].getComponentOfType(Transform).translation[2] += lastTown.getComponentOfType(Transform).translation[2] + 1.63 * this.townSize;
+            townsSortedByZ[0].getComponentOfType(Transform).translation[2] += lastTown.getComponentOfType(Transform).translation[2] + 1.63 * this.townSize; // nevem zakaj je lih 1.63, ampak ravno za tok ga more premaknit od zadnjega da je najbolje
         }
     }
-
-   /*  update(dt) {
-        for (const town of this.townModels) {
-            const transform = town.getComponentOfType(Transform);
-            transform.translation[2] -= dt * this.speed;
-
-            // check threshold
-            if (transform.translation[2] < this.threshold) {
-                const maxZ = Math.max(...this.townModels.map(t => t.getComponentOfType(Transform).translation[2]));
-                transform.translation[2] = maxZ + 10;
-            }
-        }
-    } */
 
 }
