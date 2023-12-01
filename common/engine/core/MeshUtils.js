@@ -31,13 +31,32 @@ export function calculateAxisAlignedBoundingBox(mesh) {
 }
 
 export function mergeAxisAlignedBoundingBoxes(boxes) {
+    if (!boxes || boxes.length === 0) {
+        // Handle the case when the array is empty or undefined
+        return {
+            min: [0, 0, 0],
+            max: [0, 0, 0],
+        };
+    }
+
+    if (boxes.length === 1) {
+        // No need to merge if there's only one element in the array
+        return {
+            min: vec3.clone(boxes[0].min),
+            max: vec3.clone(boxes[0].max),
+        };
+    }
+
     const initial = {
         min: vec3.clone(boxes[0].min),
         max: vec3.clone(boxes[0].max),
     };
 
-    return {
-        min: boxes.reduce(({ min: amin }, { min: bmin }) => vec3.min(amin, amin, bmin), initial),
-        max: boxes.reduce(({ max: amax }, { max: bmax }) => vec3.max(amax, amax, bmax), initial),
-    };
+    return boxes.slice(1).reduce(({ min: amin, max: amax }, { min: bmin, max: bmax }) => {
+        return {
+            min: vec3.min(amin, amin, bmin),
+            max: vec3.max(amax, amax, bmax),
+        };
+    }, initial);
 }
+
