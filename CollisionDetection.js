@@ -88,12 +88,11 @@ export class CollisionDetection {
         const isColliding = this.aabbIntersection(aBox, bBox);
         if (isColliding) {
             if (a.name == 'Cube' && b.name == 'Person') { // če drek zadane človeka je drugačen resolve
-
-                if(a.collidedWith === b.name) {  // isti zadetek šteje samo enkrat zato da dobi samo eno točko
+                
+                if(a.justCollided) { // da nešteje istega collisiona večkrat - za scoring
                     return;
                 }
                 this.scoringSystem.hit();
-                a.collidedWith = b.name;
                 a.justCollided = true;
                 console.log("Score:", this.scoringSystem.checkScore());
             } else {
@@ -102,10 +101,6 @@ export class CollisionDetection {
 
             // console.log(`Collision Resolved: ${a.name} and ${b.name}`);
             // console.log("collision");
-        } else {
-            if (a.collidedWith === b.name && !a.justCollided) {
-                a.collidedWith = null;
-            }        
         }
     }
 

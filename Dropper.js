@@ -12,7 +12,6 @@ export class Dropper {
         this.verticalSpeed = 0;
         this.horizontalSpeed = 10; 
         this.gravity = 9.8; 
-        this.collidedWith = null; 
         this.justCollided = false;
     }
 
@@ -40,7 +39,6 @@ export class Dropper {
             this.currentPosition[2] += this.horizontalSpeed * dt;
             this.currentPosition[1] -= this.verticalSpeed * dt;
 
-            //this.currentPosition[1] -= this.currentSpeed * dt;
             this.fece.getComponentOfType(Transform).translation = this.currentPosition;
 
             const threshold = -10;
