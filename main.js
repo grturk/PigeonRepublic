@@ -21,13 +21,15 @@ import { CollisionDetection } from './CollisionDetection.js';
 import { Dropper } from './Dropper.js';
 import { InfinityTown } from './InfinityTown.js';
 
+import { GameOver } from './GameOver.js';
+import { ScoringSytem } from './ScoringSystem.js';
 
 const canvas = document.querySelector('canvas');
 const renderer = new Renderer(canvas);
 await renderer.initialize(); 
 
-
-
+const gameOver = new GameOver();
+const scoringSystem = new ScoringSytem();
 
 const pigeonLoader = new GLTFLoader();
 await pigeonLoader.load('common/models/pigeon5.gltf');
@@ -195,12 +197,26 @@ person_3.isStatic = true;
 //target_3.isStatic = true;
 
 
-scene.addChild(town1);
-scene.addChild(town2);
-scene.addChild(town3);
+
+const towns = [town1, town2, town3]
 
 const pigeonController = new PigeonController(pigeon, target);
-const collision = new CollisionDetection(scene);
+const collision = new CollisionDetection(scene, gameOver, scoringSystem);
+
+
+const infinityTown = new InfinityTown(scene, towns, gameOver);
+
+window.addEventListener('feceDrop', handleFeceDrop);
+
+const feceLoader = new GLTFLoader();
+await feceLoader.load('common/models/drek3.gltf');
+const fece = feceLoader.loadNode('Cube');
+const dropper = new Dropper(scene, fece, pigeon);
+
+function handleFeceDrop(event) {
+    const { position, initialSpeed } = event.detail;
+    dropper.dropFece(position, initialSpeed);
+}
 
 scene.traverse(node => {
     const model = node.getComponentOfType(Model);
@@ -212,6 +228,7 @@ scene.traverse(node => {
     node.aabb = mergeAxisAlignedBoundingBoxes(boxes);
 
     // Log bounding box details with node name
+    /*
     if (node.aabb) {
         console.log(`Node AABB: ${node.name || 'Unnamed Node'}`, {
             min: node.aabb.min,
@@ -231,24 +248,8 @@ scene.traverse(node => {
                 depth: box.max[2] - box.min[2],
             });
         });
-    }
+    }*/
 });
-
-const towns = [town1, town2, town3]
-
-const infinityTown = new InfinityTown(scene, towns);
-
-window.addEventListener('feceDrop', handleFeceDrop);
-
-const feceLoader = new GLTFLoader();
-await feceLoader.load('common/models/drek3.gltf');
-const fece = feceLoader.loadNode('Cube');
-const dropper = new Dropper(scene, fece, pigeon);
-
-function handleFeceDrop(event) {
-    const { position, initialSpeed } = event.detail;
-    dropper.dropFece(position, initialSpeed);
-}
 
 
 function update(time, dt) {

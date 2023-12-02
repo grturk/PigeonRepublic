@@ -80,7 +80,6 @@ export class PigeonController {
     }
 
     emitFeceDropEvent() {
-        console.log("emitting")
         const event = new CustomEvent('feceDrop', {
             detail: {
                 position: this.pigeonTransformComponent.translation.slice(),

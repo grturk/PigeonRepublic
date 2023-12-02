@@ -4,8 +4,10 @@ import { Transform } from '../../../common/engine/core.js';
 
 export class CollisionDetection {
 
-    constructor(scene) {
+    constructor(scene, gameOver, scoringSystem) {
         this.scene = scene;
+        this.gameOver = gameOver;
+        this.scoringSystem = scoringSystem;
     }
 
     update(t, dt) {
@@ -85,53 +87,26 @@ export class CollisionDetection {
         // Check if there is collision.
         const isColliding = this.aabbIntersection(aBox, bBox);
         if (isColliding) {
-            // Handle the collision or log the collision information as needed.
-            // In this example, we're just logging the collision names.
-            console.log(`Collision Resolved: ${a.name} and ${b.name}`);
-            console.log("collision");
-        }
-        if (!isColliding) {
-            return;
-        }
-        /*
-        // Move node A minimally to avoid collision.
-        const diffa = vec3.sub(vec3.create(), bBox.max, aBox.min);
-        const diffb = vec3.sub(vec3.create(), aBox.max, bBox.min);
+            if (a.name == 'Cube' && b.name == 'Person') { // če drek zadane človeka je drugačen resolve
 
-        let minDiff = Infinity;
-        let minDirection = [0, 0, 0];
-        if (diffa[0] >= 0 && diffa[0] < minDiff) {
-            minDiff = diffa[0];
-            minDirection = [minDiff, 0, 0];
-        }
-        if (diffa[1] >= 0 && diffa[1] < minDiff) {
-            minDiff = diffa[1];
-            minDirection = [0, minDiff, 0];
-        }
-        if (diffa[2] >= 0 && diffa[2] < minDiff) {
-            minDiff = diffa[2];
-            minDirection = [0, 0, minDiff];
-        }
-        if (diffb[0] >= 0 && diffb[0] < minDiff) {
-            minDiff = diffb[0];
-            minDirection = [-minDiff, 0, 0];
-        }
-        if (diffb[1] >= 0 && diffb[1] < minDiff) {
-            minDiff = diffb[1];
-            minDirection = [0, -minDiff, 0];
-        }
-        if (diffb[2] >= 0 && diffb[2] < minDiff) {
-            minDiff = diffb[2];
-            minDirection = [0, 0, -minDiff];
-        }
+                if(a.collidedWith === b.name) {  // isti zadetek šteje samo enkrat zato da dobi samo eno točko
+                    return;
+                }
+                this.scoringSystem.hit();
+                a.collidedWith = b.name;
+                a.justCollided = true;
+                console.log("Score:", this.scoringSystem.checkScore());
+            } else {
+                this.gameOver.endGame();
+            }
 
-        const transform = a.getComponentOfType(Transform);
-        if (!transform) {
-            return;
+            // console.log(`Collision Resolved: ${a.name} and ${b.name}`);
+            // console.log("collision");
+        } else {
+            if (a.collidedWith === b.name && !a.justCollided) {
+                a.collidedWith = null;
+            }        
         }
-
-        vec3.add(transform.translation, transform.translation, minDirection);
-        */
     }
 
 }
