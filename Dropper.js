@@ -3,7 +3,7 @@ import { Transform } from './common/engine/core.js';
 
 export class Dropper {
 
-    constructor(scene, fece, pigeon) {
+    constructor(scene, fece, pigeon, showHitMessage) {
         this.scene = scene;
         this.fece = fece;
         this.pigeon = pigeon;
@@ -13,6 +13,7 @@ export class Dropper {
         this.horizontalSpeed = 10; 
         this.gravity = 9.8; 
         this.justCollided = false;
+        this.showHitMessage = showHitMessage
     }
 
     dropFece(position, initialSpeed) {
@@ -29,6 +30,7 @@ export class Dropper {
     handleCollision(){
         this.isFeceDropped = false;
         this.scene.removeChild(this.fece);
+        this.showHitMessage();
         //this.fece.getComponentOfType(Transform).translation[2] -= 30;
     }
 
@@ -57,5 +59,5 @@ export class Dropper {
             }
         }
     }
-    
+
 }

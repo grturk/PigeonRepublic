@@ -32,6 +32,16 @@ await renderer.initialize();
 const gameOver = new GameOver();
 const scoringSystem = new ScoringSytem();
 
+function showHitMessage() {
+    const hitMessage = document.getElementById('hitMessage');
+    if (hitMessage) {
+        hitMessage.style.display = 'block';
+
+        setTimeout(() => {
+            hitMessage.style.display = 'none';
+        }, 500);
+    }
+}
 
 const pigeonLoader = new GLTFLoader();
 await pigeonLoader.load('common/models/pigeon5.gltf');
@@ -226,7 +236,7 @@ window.addEventListener('feceDrop', handleFeceDrop);
 const feceLoader = new GLTFLoader();
 await feceLoader.load('common/models/drek3.gltf');
 const fece = feceLoader.loadNode('Cube');
-const dropper = new Dropper(scene, fece, pigeon);
+const dropper = new Dropper(scene, fece, pigeon, showHitMessage);
 
 const collision = new CollisionDetection(scene, gameOver, scoringSystem, dropper);
 
