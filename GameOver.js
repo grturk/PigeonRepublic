@@ -10,6 +10,7 @@ export class GameOver {
     endGame() {
         this.isGameOver = true;
         console.log("GAME OVER!");
+        window.location.href = "gameover.html";
         // Lahko se naredi animacija da golob pade
         // const pigeonTransform = this.pigeon.getComponentOfType(Transform);
         // const pigeonRotator = this.pigeon.getComponentOfType(RotateAnimator);

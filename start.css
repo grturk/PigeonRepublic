@@ -1,0 +1,36 @@
+body {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url('/background.jpeg'); /* Imposta il percorso dell'immagine di sfondo */
+    background-size: cover; /* Fai in modo che l'immagine copra l'intera pagina */
+    background-position: center; /* Posiziona l'immagine al centro */
+    background-repeat: no-repeat; /* Evita che l'immagine si ripeta */
+}
+  
+  .game-container {
+    text-align: center;
+  }
+  
+  .game-title {
+    font-size: 2em;
+    color: #333;
+  }
+  
+  #start-button {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  #start-button:hover {
+    background-color: #45a049;
+  }
+  
