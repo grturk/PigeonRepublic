@@ -23,15 +23,23 @@ export class Dropper {
         this.currentPosition = position.slice();
         this.isFeceDropped = true;
         this.fece.justCollided = false;
+        this.collision = false;
     }
+
+    handleCollision(){
+        this.isFeceDropped = false;
+        this.scene.removeChild(this.fece);
+        //this.fece.getComponentOfType(Transform).translation[2] -= 30;
+    }
+
 
     update(dt) {
         if (this.isFeceDropped) {
             this.scene.addChild(this.fece);
             this.fece.isDynamic = true; 
             this.fece.aabb = {
-                min: [-0.5, -0.5, -0.5], 
-                max: [0.5, 0.5, 0.5]   
+                min: [-0.25, -0.25, -0.25], 
+                max: [0.25, 0.25, 0.25]   
             };
         
             this.verticalSpeed += 0.2 + this.gravity * dt;
@@ -41,11 +49,11 @@ export class Dropper {
 
             this.fece.getComponentOfType(Transform).translation = this.currentPosition;
 
-            const threshold = -10;
+
+            const threshold = -20;
             if (this.currentPosition[1] < threshold) {
                 this.scene.removeChild(this.fece);
                 this.isFeceDropped = false; 
-                this.vericalSpeed = 0;
             }
         }
     }

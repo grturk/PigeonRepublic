@@ -15,7 +15,7 @@ export class InfinityTown {
     initializeTowns() {
         let offset = 0;
         for (const town of this.townModels) {
-            town.getComponentOfType(Transform).translation = [0, 0, offset];
+            town.getComponentOfType(Transform).translation = [0, -5, offset];
             town.getComponentOfType(Transform).scale = [10, 10, 10];
             this.scene.addChild(town);
             

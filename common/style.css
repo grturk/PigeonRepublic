@@ -18,6 +18,22 @@ body, html {
     height: 100%;
 }
 
+.score-display {
+    position: absolute;
+    height: 40px; 
+    width: 120px;
+    top: 20px; 
+    right: 20px; 
+    z-index: 1;
+    background-color: lightblue;
+    border-radius: 7px;
+    padding: 5px;
+    text-align: center; 
+    line-height: 40px; 
+    font-size: 1.5em; 
+    font-family: cursive;
+}
+
 .overlay {
     position: fixed;
     left: 0;
