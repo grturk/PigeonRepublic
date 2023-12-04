@@ -35,14 +35,14 @@ body, html {
 }
 
 .hit-message {
-    position: fixed; /* Fixed position relative to the viewport */
+    position: fixed;
     top: 50%;
     left: 50%;
     color: red;
     font-size: 5em;
     font-weight: bold;
     display: none;    
-    z-index: 100; /* High z-index to ensure it's on top */
+    z-index: 100;
     font-family: cursive;
 }
 
