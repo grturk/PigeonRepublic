@@ -96,33 +96,34 @@ scene.addChild(light);
 
 // town
 const townLoader1 = new GLTFLoader();
-await townLoader1.load('common/models/butast_primer_loceno.gltf');
-const town1 = townLoader1.loadNode('cesta'); 
+await townLoader1.load('common/models/butast_primer1.gltf');
+const town1 = townLoader1.loadNode('1cesta'); 
 
 //const cesta_1 = townLoader1.loadNode('cesta');
-const bloki_levo_002_1 = townLoader1.loadNode('bloki__levo.002');
-const bloki_levo_003_1 = townLoader1.loadNode('bloki__levo.003');
-const bloki_levo_004_1 = townLoader1.loadNode('bloki__levo.004');
-const bloki_desno_001_1 = townLoader1.loadNode('bloki_desno.001');
-const bloki_desno_002_1 = townLoader1.loadNode('bloki_desno.002');
-const bloki_desno_003_1 = townLoader1.loadNode('bloki_desno.003');
-const bloki_desno_004_1 = townLoader1.loadNode('bloki_desno.004');
-const hofer_ovira_1 = townLoader1.loadNode('hofer_ovira');
-const lidl_ovira_1  = townLoader1.loadNode('lidl_ovira');
-const person_1 = townLoader1.loadNode('Person');
+const bloki_levo1_1 = townLoader1.loadNode('1bloki_levo1');
+const bloki_levo2_1 = townLoader1.loadNode('1bloki_levo2');
+const bloki_levo3_1 = townLoader1.loadNode('1bloki_levo3');
+const bloki_desno1_1 = townLoader1.loadNode('1bloki_desno1');
+const bloki_desno2_1 = townLoader1.loadNode('1bloki_desno2');
+const bloki_desno3_1 = townLoader1.loadNode('1bloki_desno3');
+const bloki_desno4_1 = townLoader1.loadNode('1bloki_desno4');
+const golob_znak_1 = townLoader1.loadNode('1golob_znak');
+const hofer_ovira_1  = townLoader1.loadNode('1hofer_ovira');
+const lidl_ovira_1  = townLoader1.loadNode('1lidl_ovira');
+const person_1 = townLoader1.loadNode('1Person');
 town1.isDynamic = true;
 town1.aabb = {
     min: [-0.716, -0.716, -0.716],
     max: [0.716, 0.716, 0.716]
 }
 //cesta_1.isStatic = true;
-bloki_levo_002_1.isStatic = true;
-bloki_levo_003_1.isStatic = true;
-bloki_levo_004_1.isStatic = true;
-bloki_desno_001_1.isStatic = true;
-bloki_desno_002_1.isStatic = true;
-bloki_desno_003_1.isStatic = true;
-bloki_desno_004_1.isStatic = true;
+bloki_levo1_1.isStatic = true;
+bloki_levo2_1.isStatic = true;
+bloki_levo3_1.isStatic = true;
+bloki_desno1_1.isStatic = true;
+bloki_desno2_1.isStatic = true;
+bloki_desno3_1.isStatic = true;
+bloki_desno4_1.isStatic = true;
 hofer_ovira_1.isStatic = true;
 lidl_ovira_1.isStatic = true;
 person_1.isStatic = true;
@@ -130,70 +131,73 @@ person_1.isStatic = true;
 
 
 const townLoader2 = new GLTFLoader();
-await townLoader2.load('common/models/butast_primer_loceno.gltf');
-const town2 = townLoader2.loadNode('cesta'); 
+await townLoader2.load('common/models/butast_primer2.gltf');
+const town2 = townLoader2.loadNode('2cesta'); 
 
 //const cesta_2 = townLoader2.loadNode('cesta');
-const bloki_levo_002_2 = townLoader2.loadNode('bloki__levo.002');
-const bloki_levo_003_2 = townLoader2.loadNode('bloki__levo.003');
-const bloki_levo_004_2 = townLoader2.loadNode('bloki__levo.004');
-const bloki_desno_001_2 = townLoader2.loadNode('bloki_desno.001');
-const bloki_desno_002_2 = townLoader2.loadNode('bloki_desno.002');
-const bloki_desno_003_2 = townLoader2.loadNode('bloki_desno.003');
-const bloki_desno_004_2 = townLoader2.loadNode('bloki_desno.004');
-const hofer_ovira_2 = townLoader2.loadNode('hofer_ovira');
-const lidl_ovira_2  = townLoader2.loadNode('lidl_ovira');
-const person_2 = townLoader2.loadNode('Person');
+const bloki_levo1_2 = townLoader2.loadNode('2bloki_levo1');
+const bloki_levo2_2 = townLoader2.loadNode('2bloki_levo2');
+const bloki_levo3_2 = townLoader2.loadNode('2bloki_levo3');
+const bloki_levo4_2 = townLoader2.loadNode('2bloki_levo4');
+const bloki_desno1_2 = townLoader2.loadNode('2bloki_desno1');
+const bloki_desno2_2 = townLoader2.loadNode('2bloki_desno2');
+const bloki_desno3_2 = townLoader2.loadNode('2bloki_desno3');
+const hofer_ovira_2 = townLoader2.loadNode('2hofer_ovira');
+const golob_ovira_2  = townLoader2.loadNode('2golob_ovira');
+const person_2 = townLoader2.loadNode('2Person');
 town2.isDynamic = true;
 town2.aabb = {
     min: [-0.716, -0.716, -0.716],
     max: [0.716, 0.716, 0.716]
-}
-//cesta_2.isStatic = true;
-bloki_levo_002_2.isStatic = true;
-bloki_levo_003_2.isStatic = true;
-bloki_levo_004_2.isStatic = true;
-bloki_desno_001_2.isStatic = true;
-bloki_desno_002_2.isStatic = true;
-bloki_desno_003_2.isStatic = true;
-bloki_desno_004_2.isStatic = true;
+};
+// cesta_2.isStatic = true;
+bloki_levo1_2.isStatic = true;
+bloki_levo2_2.isStatic = true;
+bloki_levo3_2.isStatic = true;
+bloki_levo4_2.isStatic = true;
+bloki_desno1_2.isStatic = true;
+bloki_desno2_2.isStatic = true;
+bloki_desno3_2.isStatic = true;
 hofer_ovira_2.isStatic = true;
-lidl_ovira_2.isStatic = true;
+golob_ovira_2.isStatic = true;
 person_2.isStatic = true;
+// target_2.isStatic = true; // Change names in the below part so they will be correct, corresponding to consts above
+
 //target_2.isStatic = true;
 
 
 const townLoader3 = new GLTFLoader();
-await townLoader3.load('common/models/butast_primer_loceno.gltf');
-const town3 = townLoader3.loadNode('cesta'); 
+await townLoader3.load('common/models/butast_primer3.gltf');
+const town3 = townLoader3.loadNode('3cesta'); 
 
 //const cesta_3 = townLoader3.loadNode('cesta');
-const bloki_levo_002_3 = townLoader3.loadNode('bloki__levo.002');
-const bloki_levo_003_3 = townLoader3.loadNode('bloki__levo.003');
-const bloki_levo_004_3 = townLoader3.loadNode('bloki__levo.004');
-const bloki_desno_001_3 = townLoader3.loadNode('bloki_desno.001');
-const bloki_desno_002_3 = townLoader3.loadNode('bloki_desno.002');
-const bloki_desno_003_3 = townLoader3.loadNode('bloki_desno.003');
-const bloki_desno_004_3 = townLoader3.loadNode('bloki_desno.004');
-const hofer_ovira_3 = townLoader3.loadNode('hofer_ovira');
-const lidl_ovira_3  = townLoader3.loadNode('lidl_ovira');
-const person_3 = townLoader3.loadNode('Person');
+const bloki_levo1_3 = townLoader3.loadNode('3bloki_levo1');
+const bloki_levo2_3 = townLoader3.loadNode('3bloki_levo2');
+const bloki_levo3_3 = townLoader3.loadNode('3bloki_levo3');
+const bloki_levo4_3 = townLoader3.loadNode('3bloki_levo4');
+const bloki_desno1_3 = townLoader3.loadNode('3bloki_desno1');
+const bloki_desno2_3 = townLoader3.loadNode('3bloki_desno2');
+const bloki_desno3_3 = townLoader3.loadNode('3bloki_desno3');
+const hofer_ovira_3 = townLoader3.loadNode('3hofer_ovira');
+const golob_znak_3  = townLoader3.loadNode('3golob_znak');
+const person_3 = townLoader3.loadNode('3Person');
 town3.isDynamic = true;
 town3.aabb = {
     min: [-0.716, -0.716, -0.716],
     max: [0.716, 0.716, 0.716]
-}
-//cesta_3.isStatic = true;
-bloki_levo_002_3.isStatic = true;
-bloki_levo_003_3.isStatic = true;
-bloki_levo_004_3.isStatic = true;
-bloki_desno_001_3.isStatic = true;
-bloki_desno_002_3.isStatic = true;
-bloki_desno_003_3.isStatic = true;
-bloki_desno_004_3.isStatic = true;
+};
+// cesta_3.isStatic = true;
+bloki_levo1_3.isStatic = true;
+bloki_levo2_3.isStatic = true;
+bloki_levo3_3.isStatic = true;
+bloki_levo4_3.isStatic = true;
+bloki_desno1_3.isStatic = true;
+bloki_desno2_3.isStatic = true;
+bloki_desno3_3.isStatic = true;
 hofer_ovira_3.isStatic = true;
-lidl_ovira_3.isStatic = true;
+golob_znak_3.isStatic = true;
 person_3.isStatic = true;
+
 //target_3.isStatic = true;
 
 
