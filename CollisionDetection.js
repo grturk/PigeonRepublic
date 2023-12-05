@@ -104,7 +104,7 @@ export class CollisionDetection {
                 this.gameOver.endGame();
             }
 
-            // console.log(`Collision Resolved: ${a.name} and ${b.name}`);
+            console.log(`Collision Resolved: ${a.name} and ${b.name}`);
             // console.log("collision");
         }
     }

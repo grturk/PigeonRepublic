@@ -122,8 +122,20 @@ const bloki_desno_004_1 = townLoader1.loadNode('bloki_desno.004');
 const hofer_ovira_1 = townLoader1.loadNode('hofer_ovira');
 const lidl_ovira_1  = townLoader1.loadNode('lidl_ovira');
 const person_1_1 = townLoader1.loadNode('Person');
+person_1_1.addComponent(new LinearAnimator(person_1_1, {
+    startPosition: [-0.25, -0.8, -0.5],
+    endPosition: [-1, -0.8, 1],
+    duration: 5,
+    loop: true,
+}));
 const person_1_2 = townLoader1.loadNode('Person.001');
 const person_1_3 = townLoader1.loadNode('Person.003');
+person_1_3.addComponent(new LinearAnimator(person_1_3, {
+    startPosition: [-1, -0.75, -1],
+    endPosition: [1, -0.75, 1],
+    duration: 5,
+    loop: true,
+}));
 town1.isDynamic = true;
 town1.aabb = {
     min: [-0.716, -0.716, -0.716],
@@ -162,7 +174,19 @@ const hofer_ovira_2 = townLoader2.loadNode('hofer_ovira');
 const golob_ovira = townLoader2.loadNode('golob_ovira');
 const person_2_1 = townLoader2.loadNode('Person');
 const person_2_2 = townLoader2.loadNode('Person.001');
+person_2_2.addComponent(new LinearAnimator(person_2_2, {
+    startPosition: [1, -0.5, 1],
+    endPosition: [-1, -0.5, -1],
+    duration: 4,
+    loop: true,
+}));
 const person_2_3 = townLoader2.loadNode('Person.003');
+person_2_3.addComponent(new LinearAnimator(person_2_3, {
+    startPosition: [-0.5, -0.75, 0.5],
+    endPosition: [-1.5, -0.75, -1.5],
+    duration: 15,
+    loop: true,
+}));
 town2.isDynamic = true;
 town2.aabb = {
     min: [-0.716, -0.716, -0.716],
@@ -202,6 +226,12 @@ const hofer_ovira_3 = townLoader3.loadNode('hofer_ovira');
 const person_3_1 = townLoader3.loadNode('Person');
 const person_3_2 = townLoader3.loadNode('Person.001');
 const person_3_3 = townLoader3.loadNode('Person.003');
+person_3_2.addComponent(new LinearAnimator(person_3_2, {
+    startPosition: [0, -0.75, 0],
+    endPosition: [0, -0.75, -1],
+    duration: 8,
+    loop: true,
+}));
 town3.isDynamic = true;
 town3.aabb = {
     min: [-0.716, -0.716, -0.716],
