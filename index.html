@@ -1,19 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Vaja 5</title>
-    <link rel="stylesheet" href="common/style.css">
-    <script src="lib/gl-matrix-min.js"></script>
-    <script type="module" src="main.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pigeon Republic</title>
+  <link rel="stylesheet" href="common/style.css">
+  <script src="lib/gl-matrix-min.js"></script>
+  <script type="module" src="main.js"></script>
 </head>
 <body>
-    <div id="startScreen">
-        <h1>Pigeon Republic</h1>
-        <button id="startButton">Start Game</button>
-      </div>
-    <div class="fullscreen">
-        <canvas></canvas>
-    </div>
+  <!-- Your existing HTML content -->
+  <div id="startScreen">
+    <h1>Pigeon Republic</h1>
+    <button id="startButton">Start Game</button>
+  </div>
+  <div class="fullscreen">
+    <canvas></canvas>
+  </div>
+  <div id="gameOverPopup" class="game-over-container">
+    <h1>Game Over!</h1>
+    <p>Thanks for playing.</p>
+    <button id="restartButton">Restart Game</button>
+  </div>
 </body>
 </html>
+
