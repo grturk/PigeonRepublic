@@ -22,11 +22,11 @@ import { Dropper } from './Dropper.js';
 import { InfinityTown } from './InfinityTown.js';
 
 import { GameOver } from './GameOver.js';
-import { ScoringSytem } from './ScoringSystem.js';
+import { ScoringSystem } from './ScoringSystem.js';
 
 let pigeonController, dropper, infinityTown;
 let pigeonLoader, targetLoader, townLoader1, townLoader2, townLoader3, feceLoader;
-let scene, camera, renderer, collision, towns, fece;
+let scene, camera, renderer, collision, towns, fece, pigeon, scoringSystem;
 
 document.addEventListener('DOMContentLoaded', async () => {
     const startButton = document.getElementById('startButton');
@@ -43,8 +43,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         renderer = new Renderer(canvas);
         await renderer.initialize(); 
 
-        const gameOver = new GameOver();
-        const scoringSystem = new ScoringSytem();
+        scoringSystem = new ScoringSystem();
+        const gameOver = new GameOver(pigeon, scoringSystem);
+
 
         pigeonLoader = new GLTFLoader();
         await pigeonLoader.load('common/models/pigeon5.gltf');
@@ -86,7 +87,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             loop: true,
         }));
 
-        const pigeon = pigeonLoader.loadNode('flying');
+        pigeon = pigeonLoader.loadNode('flying');
         pigeon.addComponent(new Transform({
             translation: [0, 0, 0, 1], 
             scale: [0.5, 0.5, 0.5],
@@ -225,11 +226,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         towns = [town1, town2, town3];
 
-        pigeonController = new PigeonController(pigeon, target);
+        pigeonController = new PigeonController(pigeon, target, scoringSystem);
         collision = new CollisionDetection(scene, gameOver, scoringSystem);
         fece = await feceLoader.loadNode('Cube');
-        dropper = new Dropper(scene, fece, pigeon);
-        infinityTown = new InfinityTown(scene, towns, gameOver);
+        dropper = new Dropper(scene, fece, pigeon, scoringSystem);
+        infinityTown = new InfinityTown(scene, towns, gameOver, scoringSystem);
 
         window.addEventListener('feceDrop', handleFeceDrop);
 

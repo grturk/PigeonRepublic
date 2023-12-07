@@ -4,10 +4,11 @@ import { Transform } from '../../../common/engine/core.js';
 
 export class CollisionDetection {
 
-    constructor(scene, gameOver, scoringSystem) {
+    constructor(scene, gameOver, scoringSystem, dropper) {
         this.scene = scene;
         this.gameOver = gameOver;
         this.scoringSystem = scoringSystem;
+        this.dropper = dropper;
     }
 
     update(t, dt) {
@@ -87,7 +88,10 @@ export class CollisionDetection {
         // Check if there is collision.
         const isColliding = this.aabbIntersection(aBox, bBox);
         if (isColliding) {
-            if (a.name == 'Cube' && b.name == 'Person') { // če drek zadane človeka je drugačen resolve
+            
+            if ((a.name == 'Cube' && b.name == 'Person' ) ||
+                (a.name == 'Cube' && b.name == 'Person.001') || 
+                (a.name == 'Cube' && b.name == 'Person.003')) { // če drek zadane človeka je drugačen resolve
                 
                 if(a.justCollided) { // da nešteje istega collisiona večkrat - za scoring
                     return;
@@ -95,11 +99,12 @@ export class CollisionDetection {
                 this.scoringSystem.hit();
                 a.justCollided = true;
                 console.log("Score:", this.scoringSystem.checkScore());
+                this.dropper.handleCollision();
             } else {
                 this.gameOver.endGame();
             }
 
-            // console.log(`Collision Resolved: ${a.name} and ${b.name}`);
+            console.log(`Collision Resolved: ${a.name} and ${b.name}`);
             // console.log("collision");
         }
     }
