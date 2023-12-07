@@ -108,7 +108,7 @@ scene.addChild(light);
 
 // town
 const townLoader1 = new GLTFLoader();
-await townLoader1.load('common/models/mesto1_2.gltf');
+await townLoader1.load('common/models/mesto1_4.gltf');
 const town1 = townLoader1.loadNode('cesta'); 
 
 //const cesta_1 = townLoader1.loadNode('cesta');
@@ -158,7 +158,7 @@ person_1_3.isStatic = true;
 
 
 const townLoader2 = new GLTFLoader();
-await townLoader2.load('common/models/mesto2_2.gltf');
+await townLoader2.load('common/models/mesto2_4.gltf');
 const town2 = townLoader2.loadNode('cesta'); 
 
 //const cesta_2 = townLoader2.loadNode('cesta');
@@ -170,7 +170,7 @@ const bloki_desno_002_2 = townLoader2.loadNode('bloki_desno.002');
 const bloki_desno_003_2 = townLoader2.loadNode('bloki_desno.003');
 const bloki_desno_004_2 = townLoader2.loadNode('bloki_desno.004');
 const hofer_ovira_2 = townLoader2.loadNode('hofer_ovira');
-//const lidl_ovira_2  = townLoader2.loadNode('lidl_ovira');
+const golob_znak_2  = townLoader2.loadNode('3golob_znak.001');
 const golob_ovira = townLoader2.loadNode('golob_ovira');
 const person_2_1 = townLoader2.loadNode('Person');
 const person_2_2 = townLoader2.loadNode('Person.001');
@@ -201,7 +201,7 @@ bloki_desno_002_2.isStatic = true;
 bloki_desno_003_2.isStatic = true;
 bloki_desno_004_2.isStatic = true;
 hofer_ovira_2.isStatic = true;
-//lidl_ovira_2.isStatic = true;
+golob_znak_2.isStatic = true;
 golob_ovira.isStatic = true;
 person_2_1.isStatic = true;
 person_2_2.isStatic = true;
