@@ -8,10 +8,21 @@
     <script type="module" src="main.js"></script>
 </head>
 <body>
+    <div id="startScreen">
+        <h1>Pigeon Republic</h1>
+        <p>Move with ↑, ↓, →, ←.</p> 
+        <p>Space bar: shoot!!</p>
+        <button id="startButton">Start Game</button>
+    </div>
     <div class="fullscreen">
         <canvas></canvas>
         <div id="scoreDisplay" class="score-display">Score: 0</div>
         <div id="hitMessage" class="hit-message">HIT!!!</div>
+    </div>
+    <div id="gameOverPopup" class="game-over-container">
+        <h1>GAME OVER!</h1>
+        <h1 id="finalScore">Score: 0</h1>
+        <button id="restartButton">Restart Game</button>
     </div>
 </body>
 </html>

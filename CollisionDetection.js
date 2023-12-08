@@ -93,18 +93,18 @@ export class CollisionDetection {
                 (a.name == 'Cube' && b.name == 'Person.001') || 
                 (a.name == 'Cube' && b.name == 'Person.003')) { // če drek zadane človeka je drugačen resolve
                 
-                if(a.justCollided) { // da nešteje istega collisiona večkrat - za scoring
+                if(a.justCollided) { // da ne šteje istega collisiona večkrat - za scoring
                     return;
                 }
                 this.scoringSystem.hit();
                 a.justCollided = true;
-                console.log("Score:", this.scoringSystem.checkScore());
+                // console.log("Score:", this.scoringSystem.checkScore());
                 this.dropper.handleCollision();
             } else {
                 this.gameOver.endGame();
             }
 
-            console.log(`Collision Resolved: ${a.name} and ${b.name}`);
+            // console.log(`Collision Resolved: ${a.name} and ${b.name}`);
             // console.log("collision");
         }
     }

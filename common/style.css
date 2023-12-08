@@ -3,14 +3,16 @@ body, html {
     padding: 0;
 }
 
-* {
+/* {
     font-family: sans-serif;
-}
+}*/
 
 .fullscreen {
+    display: none;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    cursor: none;
 }
 
 .fullscreen > * {
@@ -44,6 +46,49 @@ body, html {
     display: none;    
     z-index: 100;
     font-family: cursive;
+}
+
+#startScreen {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center; 
+    font-size: 1.5em;
+    font-family: cursive;
+    font-weight: bold;
+    padding: 40px;
+    border-radius: 20px;
+    background-color: rgba(221, 221, 243, 0.853);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.game-over-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center; 
+    font-family: cursive;
+    padding: 40px;
+    border-radius: 20px;
+    background-color: rgba(221, 221, 243, 0.853);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    background-color: #3498db;
+    color: white;
+    font-family: cursive;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .overlay {

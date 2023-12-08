@@ -1,19 +1,22 @@
-//import { RotateAnimator } from "./common/engine/animators/RotateAnimator";
-//import { Transform } from "./common/engine/core";
+;
 
 export class GameOver {
-    constructor(pigeon) {
+    constructor(scoringSystem) {
         this.isGameOver = false;
-        this.pigeon = pigeon;
+        this.scoringSystem = scoringSystem
     }
 
     endGame() {
         this.isGameOver = true;
-        console.log("GAME OVER!");
-        // Lahko se naredi animacija da golob pade
-        // const pigeonTransform = this.pigeon.getComponentOfType(Transform);
-        // const pigeonRotator = this.pigeon.getComponentOfType(RotateAnimator);
-        
+        // console.log("GAME OVER!");
+            
+        document.getElementById('finalScore').textContent = `Score: ${this.scoringSystem.checkScore()}`;
+        document.querySelector('.fullscreen').style.display = 'none';
+        document.getElementById('gameOverPopup').style.display = 'block';
+
+        document.getElementById('restartButton').addEventListener('click', function() {
+            location.reload(); 
+        });
     }
 
     resetGame() {

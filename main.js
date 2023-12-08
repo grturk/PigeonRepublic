@@ -28,9 +28,22 @@ const canvas = document.querySelector('canvas');
 const renderer = new Renderer(canvas);
 await renderer.initialize(); 
 
+let startGame = false;
+if(!startGame) {
+    document.querySelector('.fullscreen').style.display = 'none';
+    document.getElementById('startScreen').style.display = 'block';
 
-const gameOver = new GameOver();
+    document.getElementById('startButton').addEventListener('click', function() {
+        startGame = true;
+        document.getElementById('startScreen').style.display = 'none';
+        document.querySelector('.fullscreen').style.display = 'block';
+    });
+}
+
 const scoringSystem = new ScoringSytem();
+const gameOver = new GameOver(scoringSystem);
+
+
 
 function showHitMessage() {
     const hitMessage = document.getElementById('hitMessage');
@@ -261,6 +274,7 @@ const pigeonController = new PigeonController(pigeon, target);
 
 const infinityTown = new InfinityTown(scene, towns, gameOver);
 
+
 window.addEventListener('feceDrop', handleFeceDrop);
 
 const feceLoader = new GLTFLoader();
@@ -312,7 +326,10 @@ scene.traverse(node => {
 function update(time, dt) {
     pigeonController.update();
     dropper.update(dt);
-    infinityTown.update(dt);
+    if(startGame) {
+        infinityTown.update(dt);
+
+    }
     scene.traverse(node => {
         for (const component of node.components) {
             component.update?.(time, dt);
