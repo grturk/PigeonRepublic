@@ -36,7 +36,7 @@ export class InfinityTown {
             const lastTown = townsSortedByZ[townsSortedByZ.length - 1];
             
             if (townsSortedByZ[0].getComponentOfType(Transform).translation[2] < this.threshold) {
-                townsSortedByZ[0].getComponentOfType(Transform).translation[2] += lastTown.getComponentOfType(Transform).translation[2] + 1.633 * this.townSize; // nevem zakaj je lih 1.63, ampak ravno za tok ga more premaknit od zadnjega da je najbolje
+                townsSortedByZ[0].getComponentOfType(Transform).translation[2] += lastTown.getComponentOfType(Transform).translation[2] + 1.633 * this.townSize; 
             }
         }
     }

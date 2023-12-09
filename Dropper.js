@@ -17,7 +17,6 @@ export class Dropper {
     }
 
     dropFece(position, initialSpeed) {
-        // Reset the position and speed of the fece model
         this.fece.getComponentOfType(Transform).translation = position.slice();
         this.fece.getComponentOfType(Transform).translation[1] += 10;
         this.verticalSpeed = 0;
@@ -31,7 +30,6 @@ export class Dropper {
         this.isFeceDropped = false;
         this.scene.removeChild(this.fece);
         this.showHitMessage();
-        //this.fece.getComponentOfType(Transform).translation[2] -= 30;
     }
 
 

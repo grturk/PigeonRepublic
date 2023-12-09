@@ -61,12 +61,13 @@ await pigeonLoader.load('common/models/pigeon5.gltf');
 
 const gltfLoader = new GLTFLoader();
 const scene = pigeonLoader.loadScene(pigeonLoader.defaultScene);
+
 // camera
 const camera = scene.find(node => node.getComponentOfType(Camera));
 camera.getComponentOfType(Camera).far=1500;
 camera.getComponentOfType(Camera).near=15;
-//pigeon, wings animation
 
+//pigeon, wings animation
 const wing1 = pigeonLoader.loadNode('flying.001')
 
 wing1.addComponent(new RotateAnimator(wing1, {
@@ -97,17 +98,6 @@ pigeon.aabb = {
     max: [0.5, 0.5, 0.5]
 }
 
-// target
-
-const targetLoader = new GLTFLoader();
-await targetLoader.load('common/models/target3.gltf');
-const target = targetLoader.loadNode('Target');
-target.addComponent(new Transform({
-    translation: [0, 0, -6, 1],
-}));
-//scene.addChild(target);
-
-
 // light
 const light = new Node();
 light.addComponent(new Transform({
@@ -124,7 +114,6 @@ const townLoader1 = new GLTFLoader();
 await townLoader1.load('common/models/mesto1_4.gltf');
 const town1 = townLoader1.loadNode('cesta'); 
 
-//const cesta_1 = townLoader1.loadNode('cesta');
 const bloki_levo_002_1 = townLoader1.loadNode('bloki__levo.002');
 const bloki_levo_003_1 = townLoader1.loadNode('bloki__levo.003');
 const bloki_levo_004_1 = townLoader1.loadNode('bloki__levo.004');
@@ -154,7 +143,6 @@ town1.aabb = {
     min: [-0.716, -0.716, -0.716],
     max: [0.716, 0.716, 0.716]
 }
-//cesta_1.isStatic = true;
 bloki_levo_002_1.isStatic = true;
 bloki_levo_003_1.isStatic = true;
 bloki_levo_004_1.isStatic = true;
@@ -167,14 +155,11 @@ lidl_ovira_1.isStatic = true;
 person_1_1.isStatic = true;
 person_1_2.isStatic = true;
 person_1_3.isStatic = true;
-//target_1.isStatic = true;
-
 
 const townLoader2 = new GLTFLoader();
 await townLoader2.load('common/models/mesto2_4.gltf');
 const town2 = townLoader2.loadNode('cesta'); 
 
-//const cesta_2 = townLoader2.loadNode('cesta');
 const bloki_levo_002_2 = townLoader2.loadNode('bloki__levo.002');
 const bloki_levo_003_2 = townLoader2.loadNode('bloki__levo.003');
 const bloki_levo_004_2 = townLoader2.loadNode('bloki__levo.004');
@@ -205,7 +190,7 @@ town2.aabb = {
     min: [-0.716, -0.716, -0.716],
     max: [0.716, 0.716, 0.716]
 }
-//cesta_2.isStatic = true;
+
 bloki_levo_002_2.isStatic = true;
 bloki_levo_003_2.isStatic = true;
 bloki_levo_004_2.isStatic = true;
@@ -219,14 +204,11 @@ golob_ovira.isStatic = true;
 person_2_1.isStatic = true;
 person_2_2.isStatic = true;
 person_2_3.isStatic = true;
-//target_2.isStatic = true;
-
 
 const townLoader3 = new GLTFLoader();
 await townLoader3.load('common/models/mesto3_3.gltf');
 const town3 = townLoader3.loadNode('cesta'); 
 
-//const cesta_3 = townLoader3.loadNode('cesta');
 const bloki_levo_002_3 = townLoader3.loadNode('bloki__levo.002');
 const bloki_levo_003_3 = townLoader3.loadNode('bloki__levo.003');
 const bloki_levo_004_3 = townLoader3.loadNode('bloki__levo.004');
@@ -235,7 +217,6 @@ const bloki_desno_002_3 = townLoader3.loadNode('bloki_desno.002');
 const bloki_desno_003_3 = townLoader3.loadNode('bloki_desno.003');
 const bloki_desno_004_3 = townLoader3.loadNode('bloki_desno.004');
 const hofer_ovira_3 = townLoader3.loadNode('hofer_ovira');
-//const most = townLoader3.loadNode('most'); 
 const person_3_1 = townLoader3.loadNode('Person');
 const person_3_2 = townLoader3.loadNode('Person.001');
 const person_3_3 = townLoader3.loadNode('Person.003');
@@ -250,7 +231,6 @@ town3.aabb = {
     min: [-0.716, -0.716, -0.716],
     max: [0.716, 0.716, 0.716]
 }
-//cesta_3.isStatic = true;
 bloki_levo_002_3.isStatic = true;
 bloki_levo_003_3.isStatic = true;
 bloki_levo_004_3.isStatic = true;
@@ -259,22 +239,14 @@ bloki_desno_002_3.isStatic = true;
 bloki_desno_003_3.isStatic = true;
 bloki_desno_004_3.isStatic = true;
 hofer_ovira_3.isStatic = true;
-//most.isStatic = true;
 person_3_1.isStatic = true;
 person_3_2.isStatic = true;
 person_3_3.isStatic = true;
-//target_3.isStatic = true;
-
-
 
 const towns = [town1, town2, town3]
 
-const pigeonController = new PigeonController(pigeon, target);
-
-
+const pigeonController = new PigeonController(pigeon);
 const infinityTown = new InfinityTown(scene, towns, gameOver);
-
-
 window.addEventListener('feceDrop', handleFeceDrop);
 
 const feceLoader = new GLTFLoader();
@@ -297,31 +269,7 @@ scene.traverse(node => {
 
     const boxes = model.primitives.map(primitive => calculateAxisAlignedBoundingBox(primitive.mesh));
     node.aabb = mergeAxisAlignedBoundingBoxes(boxes);
-
-    // Log bounding box details with node name
-    /*
-    if (node.aabb) {
-        console.log(`Node AABB: ${node.name || 'Unnamed Node'}`, {
-            min: node.aabb.min,
-            max: node.aabb.max,
-            width: node.aabb.max[0] - node.aabb.min[0],
-            height: node.aabb.max[1] - node.aabb.min[1],
-            depth: node.aabb.max[2] - node.aabb.min[2],
-        });
-    } else {
-        // Log individual bounding boxes if no merging is performed
-        boxes.forEach((box, index) => {
-            console.log(`${node.name || 'Unnamed Node'} - Bounding Box ${index + 1}:`, {
-                min: box.min,
-                max: box.max,
-                width: box.max[0] - box.min[0],
-                height: box.max[1] - box.min[1],
-                depth: box.max[2] - box.min[2],
-            });
-        });
-    }*/
 });
-
 
 function update(time, dt) {
     pigeonController.update();
