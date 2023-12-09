@@ -32,7 +32,6 @@ export function calculateAxisAlignedBoundingBox(mesh) {
 
 export function mergeAxisAlignedBoundingBoxes(boxes) {
     if (!boxes || boxes.length === 0) {
-        // Handle the case when the array is empty or undefined
         return {
             min: [0, 0, 0],
             max: [0, 0, 0],
@@ -40,7 +39,6 @@ export function mergeAxisAlignedBoundingBoxes(boxes) {
     }
 
     if (boxes.length === 1) {
-        // No need to merge if there's only one element in the array
         return {
             min: vec3.clone(boxes[0].min),
             max: vec3.clone(boxes[0].max),

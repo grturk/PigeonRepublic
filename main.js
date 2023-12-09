@@ -97,17 +97,6 @@ pigeon.aabb = {
     max: [0.5, 0.5, 0.5]
 }
 
-// target
-
-const targetLoader = new GLTFLoader();
-await targetLoader.load('common/models/target3.gltf');
-const target = targetLoader.loadNode('Target');
-target.addComponent(new Transform({
-    translation: [0, 0, -6, 1],
-}));
-//scene.addChild(target);
-
-
 // light
 const light = new Node();
 light.addComponent(new Transform({
@@ -124,7 +113,7 @@ const townLoader1 = new GLTFLoader();
 await townLoader1.load('common/models/mesto1_4.gltf');
 const town1 = townLoader1.loadNode('cesta'); 
 
-//const cesta_1 = townLoader1.loadNode('cesta');
+const cesta_1 = townLoader1.loadNode('cesta');
 const bloki_levo_002_1 = townLoader1.loadNode('bloki__levo.002');
 const bloki_levo_003_1 = townLoader1.loadNode('bloki__levo.003');
 const bloki_levo_004_1 = townLoader1.loadNode('bloki__levo.004');
@@ -133,6 +122,8 @@ const bloki_desno_002_1 = townLoader1.loadNode('bloki_desno.002');
 const bloki_desno_003_1 = townLoader1.loadNode('bloki_desno.003');
 const bloki_desno_004_1 = townLoader1.loadNode('bloki_desno.004');
 const hofer_ovira_1 = townLoader1.loadNode('hofer_ovira');
+//const golob_ovira_1 = townLoader1.loadNode('golob_ovira');
+//const golob_znak_1  = townLoader1.loadNode('3golob_znak.001');
 const lidl_ovira_1  = townLoader1.loadNode('lidl_ovira');
 const person_1_1 = townLoader1.loadNode('Person');
 person_1_1.addComponent(new LinearAnimator(person_1_1, {
@@ -143,18 +134,18 @@ person_1_1.addComponent(new LinearAnimator(person_1_1, {
 }));
 const person_1_2 = townLoader1.loadNode('Person.001');
 const person_1_3 = townLoader1.loadNode('Person.003');
-person_1_3.addComponent(new LinearAnimator(person_1_3, {
+ person_1_3.addComponent(new LinearAnimator(person_1_3, {
     startPosition: [-1, -0.75, -1],
     endPosition: [1, -0.75, 1],
     duration: 5,
     loop: true,
-}));
+})); 
 town1.isDynamic = true;
 town1.aabb = {
     min: [-0.716, -0.716, -0.716],
     max: [0.716, 0.716, 0.716]
 }
-//cesta_1.isStatic = true;
+cesta_1.isStatic = true;
 bloki_levo_002_1.isStatic = true;
 bloki_levo_003_1.isStatic = true;
 bloki_levo_004_1.isStatic = true;
@@ -163,18 +154,18 @@ bloki_desno_002_1.isStatic = true;
 bloki_desno_003_1.isStatic = true;
 bloki_desno_004_1.isStatic = true;
 hofer_ovira_1.isStatic = true;
+//golob_znak_1.isStatic = true;
+//golob_ovira_1.isStatic = true;
 lidl_ovira_1.isStatic = true;
 person_1_1.isStatic = true;
 person_1_2.isStatic = true;
 person_1_3.isStatic = true;
-//target_1.isStatic = true;
-
 
 const townLoader2 = new GLTFLoader();
 await townLoader2.load('common/models/mesto2_4.gltf');
 const town2 = townLoader2.loadNode('cesta'); 
 
-//const cesta_2 = townLoader2.loadNode('cesta');
+const cesta_2 = townLoader2.loadNode('cesta');
 const bloki_levo_002_2 = townLoader2.loadNode('bloki__levo.002');
 const bloki_levo_003_2 = townLoader2.loadNode('bloki__levo.003');
 const bloki_levo_004_2 = townLoader2.loadNode('bloki__levo.004');
@@ -192,7 +183,7 @@ person_2_2.addComponent(new LinearAnimator(person_2_2, {
     endPosition: [-1, -0.5, -1],
     duration: 4,
     loop: true,
-}));
+})); 
 const person_2_3 = townLoader2.loadNode('Person.003');
 person_2_3.addComponent(new LinearAnimator(person_2_3, {
     startPosition: [-0.5, -0.75, 0.5],
@@ -205,7 +196,7 @@ town2.aabb = {
     min: [-0.716, -0.716, -0.716],
     max: [0.716, 0.716, 0.716]
 }
-//cesta_2.isStatic = true;
+cesta_2.isStatic = true;
 bloki_levo_002_2.isStatic = true;
 bloki_levo_003_2.isStatic = true;
 bloki_levo_004_2.isStatic = true;
@@ -219,14 +210,13 @@ golob_ovira.isStatic = true;
 person_2_1.isStatic = true;
 person_2_2.isStatic = true;
 person_2_3.isStatic = true;
-//target_2.isStatic = true;
 
 
 const townLoader3 = new GLTFLoader();
-await townLoader3.load('common/models/mesto3_3.gltf');
+await townLoader3.load('common/models/mesto3_4.gltf');
 const town3 = townLoader3.loadNode('cesta'); 
 
-//const cesta_3 = townLoader3.loadNode('cesta');
+const cesta_3 = townLoader3.loadNode('cesta');
 const bloki_levo_002_3 = townLoader3.loadNode('bloki__levo.002');
 const bloki_levo_003_3 = townLoader3.loadNode('bloki__levo.003');
 const bloki_levo_004_3 = townLoader3.loadNode('bloki__levo.004');
@@ -235,7 +225,8 @@ const bloki_desno_002_3 = townLoader3.loadNode('bloki_desno.002');
 const bloki_desno_003_3 = townLoader3.loadNode('bloki_desno.003');
 const bloki_desno_004_3 = townLoader3.loadNode('bloki_desno.004');
 const hofer_ovira_3 = townLoader3.loadNode('hofer_ovira');
-//const most = townLoader3.loadNode('most'); 
+const golob_ovira_3 = townLoader3.loadNode('golob_ovira');
+
 const person_3_1 = townLoader3.loadNode('Person');
 const person_3_2 = townLoader3.loadNode('Person.001');
 const person_3_3 = townLoader3.loadNode('Person.003');
@@ -244,13 +235,13 @@ person_3_2.addComponent(new LinearAnimator(person_3_2, {
     endPosition: [0, -0.75, -1],
     duration: 8,
     loop: true,
-}));
+})); 
 town3.isDynamic = true;
 town3.aabb = {
     min: [-0.716, -0.716, -0.716],
     max: [0.716, 0.716, 0.716]
 }
-//cesta_3.isStatic = true;
+cesta_3.isStatic = true;
 bloki_levo_002_3.isStatic = true;
 bloki_levo_003_3.isStatic = true;
 bloki_levo_004_3.isStatic = true;
@@ -259,17 +250,14 @@ bloki_desno_002_3.isStatic = true;
 bloki_desno_003_3.isStatic = true;
 bloki_desno_004_3.isStatic = true;
 hofer_ovira_3.isStatic = true;
-//most.isStatic = true;
+golob_ovira_3.isStatic = true;
 person_3_1.isStatic = true;
 person_3_2.isStatic = true;
 person_3_3.isStatic = true;
-//target_3.isStatic = true;
-
-
 
 const towns = [town1, town2, town3]
 
-const pigeonController = new PigeonController(pigeon, target);
+const pigeonController = new PigeonController(pigeon);
 
 
 const infinityTown = new InfinityTown(scene, towns, gameOver);

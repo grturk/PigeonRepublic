@@ -1,15 +1,11 @@
 import { Transform } from '../core.js';
 
 export class PigeonController {
-    constructor(pigeon, target) {
+    constructor(pigeon) {
         this.pigeon = pigeon;
-        //this.camera = camera;
-        this.target = target;
         this.speed = 0.1;
         this.tiltAngle = 0.1;
         this.pigeonTransformComponent = this.pigeon.getComponentOfType(Transform);
-        //this.cameraTransformComponent = this.camera.getComponentOfType(Transform);
-        this.targetTransformComponent = this.target.getComponentOfType(Transform);
     }
 
     update() {
@@ -17,33 +13,15 @@ export class PigeonController {
         //this.moveForward();
     }
 
-    // premikalo se bo mesto ne golob
-    /*  
-    moveForward() {
-        if(this.pigeonTransformComponent) {
-            this.pigeonTransformComponent.translation[2] += this.speed/2;
-        }
-        if(this.cameraTransformComponent) {
-            this.cameraTransformComponent.translation[2] += this.speed/2;
-        }
-        if(this.targetTransformComponent) {
-            this.targetTransformComponent.translation[1] = -6;
-            this.targetTransformComponent.translation[2] += this.speed/2;
-        }
-    }
-    */
-
     handleInput() {
         
         if(this.pigeonTransformComponent) {
             if (keys['ArrowLeft'] ) {
                 this.pigeonTransformComponent.translation[0] += this.speed;
                 this.pigeonTransformComponent.rotation[2] = -this.tiltAngle;
-                this.targetTransformComponent.translation[0] += this.speed;
             } else if (keys['ArrowRight']) {
                 this.pigeonTransformComponent.translation[0] -= this.speed;
                 this.pigeonTransformComponent.rotation[2] = this.tiltAngle; 
-                this.targetTransformComponent.translation[0] -= this.speed;
             } else {
                 this.pigeonTransformComponent.rotation = [0, 0, 0, 1]; 
             }

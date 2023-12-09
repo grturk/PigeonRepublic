@@ -6,8 +6,8 @@ export class InfinityTown {
         this.scene = scene;
         this.townModels = townModels;
         this.threshold = -100;
-        this.speed = 30;
-        this.townSize = 157.8;
+        this.speed = 25;
+        this.townSize = 131.95;
         this.gameOver = gameOver;
         this.initializeTowns();
     }
@@ -15,8 +15,8 @@ export class InfinityTown {
     initializeTowns() {
         let offset = 0;
         for (const town of this.townModels) {
-            town.getComponentOfType(Transform).translation = [0, -5, offset];
-            town.getComponentOfType(Transform).scale = [10, 10, 10];
+            town.getComponentOfType(Transform).translation = [0, -10, offset];
+            town.getComponentOfType(Transform).scale = [6, 6, 6];
             this.scene.addChild(town);
             
             offset += this.townSize;
@@ -36,7 +36,7 @@ export class InfinityTown {
             const lastTown = townsSortedByZ[townsSortedByZ.length - 1];
             
             if (townsSortedByZ[0].getComponentOfType(Transform).translation[2] < this.threshold) {
-                townsSortedByZ[0].getComponentOfType(Transform).translation[2] += lastTown.getComponentOfType(Transform).translation[2] + 1.633 * this.townSize; // nevem zakaj je lih 1.63, ampak ravno za tok ga more premaknit od zadnjega da je najbolje
+                townsSortedByZ[0].getComponentOfType(Transform).translation[2] += lastTown.getComponentOfType(Transform).translation[2] + 1.758 * this.townSize; // nevem zakaj je lih 1.63, ampak ravno za tok ga more premaknit od zadnjega da je najbolje
             }
         }
     }

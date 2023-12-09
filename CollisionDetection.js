@@ -1,6 +1,5 @@
-import { vec3, mat4 } from '../../../lib/gl-matrix-module.js';
+import { vec3} from '../../../lib/gl-matrix-module.js';
 import { getGlobalModelMatrix } from '../../../common/engine/core/SceneUtils.js';
-import { Transform } from '../../../common/engine/core.js';
 
 export class CollisionDetection {
 
@@ -13,10 +12,10 @@ export class CollisionDetection {
 
     update(t, dt) {
         this.scene.traverse(node => {
-            if (node.isDynamic) {
+            if (node.isDynamic && node.name !== 'cesta') {
                 this.scene.traverse(other => {
-                    // Skip collisions between a node and its descendants
-                    if (node !== other && other.isStatic && !this.isDescendant(node, other)) {
+                    // Skip collisions between "cesta" objects
+                    if (node !== other && other.isStatic && !this.isDescendant(node, other) && other.name !== 'cesta') {
                         this.resolveCollision(node, other);
                     }
                 });
@@ -51,15 +50,12 @@ export class CollisionDetection {
     }
 
     getTransformedAABB(node) {
-        // Transform all vertices of the AABB from local to global space.
         if (!node.aabb) {
             console.error('Node AABB is undefined', node);
             return;
         }
         const matrix = getGlobalModelMatrix(node);
-        //console.log("Node AABB:", node.aabb);  // Log the AABB before destructuring
-        const { min, max } = node.aabb;  // Destructuring assignment causing the error
-        //console.log("Min and Max:", min, max); 
+        const { min, max } = node.aabb;
         const vertices = [
             [min[0], min[1], min[2]],
             [min[0], min[1], max[2]],
@@ -71,7 +67,6 @@ export class CollisionDetection {
             [max[0], max[1], max[2]],
         ].map(v => vec3.transformMat4(v, v, matrix));
 
-        // Find new min and max by component.
         const xs = vertices.map(v => v[0]);
         const ys = vertices.map(v => v[1]);
         const zs = vertices.map(v => v[2]);
@@ -81,11 +76,9 @@ export class CollisionDetection {
     }
 
     resolveCollision(a, b) {
-        // Get global space AABBs.
         const aBox = this.getTransformedAABB(a);
         const bBox = this.getTransformedAABB(b);
 
-        // Check if there is collision.
         const isColliding = this.aabbIntersection(aBox, bBox);
         if (isColliding) {
             
@@ -98,13 +91,12 @@ export class CollisionDetection {
                 }
                 this.scoringSystem.hit();
                 a.justCollided = true;
-                // console.log("Score:", this.scoringSystem.checkScore());
                 this.dropper.handleCollision();
             } else {
                 this.gameOver.endGame();
             }
 
-            // console.log(`Collision Resolved: ${a.name} and ${b.name}`);
+             //console.log(`Collision Resolved: ${a.name} and ${b.name}`);
             // console.log("collision");
         }
     }
