@@ -53,6 +53,12 @@ export class Renderer extends BaseRenderer {
             .then(response => response.text());
         const module = this.device.createShaderModule({ code });
 
+        this.shadowDepthTexture = this.device.createTexture({
+            size: [1024, 1024, 1],
+            format: 'depth32float',
+            usage: GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.TEXTURE_BINDING,
+        });
+        
         this.pipeline = await this.device.createRenderPipelineAsync({
             layout: 'auto',
             vertex: {
@@ -71,8 +77,29 @@ export class Renderer extends BaseRenderer {
                 depthCompare: 'less',
             },
         });
-
+        this.createShadowPipeline();
         this.recreateDepthTexture();
+    }
+
+    async createShadowPipeline() {
+        const shadowVertexShaderCode = await fetch( 'shader.wgsl' )
+            .then(response => response.text());
+
+        const shadowVertexShaderModule = this.device.createShaderModule({ code: shadowVertexShaderCode });
+
+        this.shadowPipeline = this.device.createRenderPipeline({
+            vertex: {
+                module: shadowVertexShaderModule,
+                entryPoint: 'vertex',
+                buffers: [ vertexBufferLayout ],
+            },
+            depthStencil: {
+                format: 'depth32float',
+                depthWriteEnabled: true,
+                depthCompare: 'less',
+            },
+            // other necessary configurations...
+        });
     }
 
     recreateDepthTexture() {
@@ -177,6 +204,40 @@ export class Renderer extends BaseRenderer {
         return gpuObjects;
     }
 
+    renderShadowMap(scene, light) {
+        const shadowPassDescriptor = {
+            colorAttachments: [],
+            depthStencilAttachment: {
+                view: this.shadowDepthTexture.createView(),
+                depthClearValue: 1.0,
+                depthLoadOp: 'clear',
+                depthStoreOp: 'store',
+            },
+        };
+        
+        const commandEncoder = this.device.createCommandEncoder();
+        const shadowPass = commandEncoder.beginRenderPass(shadowPassDescriptor);
+        shadowPass.setPipeline(this.shadowPipeline);
+
+        const lightComponent = light.getComponentOfType(Light);
+        const lightMatrix = getGlobalModelMatrix(light);
+        const lightPosition = mat4.getTranslation(vec3.create(), lightMatrix);
+        
+        const viewMatrix = getGlobalViewMatrix(light);
+        const projectionMatrix = getProjectionMatrix(light);
+        const lightCamera = new Camera();
+        const { cameraUniformBuffer, cameraBindGroup } = this.prepareCamera(lightCamera);
+
+        this.device.queue.writeBuffer(cameraUniformBuffer, 0, viewMatrix);
+        this.device.queue.writeBuffer(cameraUniformBuffer, 64, projectionMatrix);
+        this.renderPass.setBindGroup(0, cameraBindGroup);
+        
+        this.renderNode(scene);
+
+        shadowPass.end();
+        this.device.queue.submit([commandEncoder.finish()]);
+    }
+
     render(scene, camera) {
         if (this.depthTexture.width !== this.canvas.width || this.depthTexture.height !== this.canvas.height) {
             this.recreateDepthTexture();
@@ -214,9 +275,15 @@ export class Renderer extends BaseRenderer {
         const lightMatrix = getGlobalModelMatrix(light);
         const lightPosition = mat4.getTranslation(vec3.create(), lightMatrix);
         const { lightUniformBuffer, lightBindGroup } = this.prepareLight(lightComponent);
+
+        const lightViewMatrix = getGlobalViewMatrix(light);
+        const lightProjectionMatrix = getProjectionMatrix(light);
+        const lightViewProjMatrix = mat4.multiply(mat4.create(), lightProjectionMatrix, lightViewMatrix);
+
         this.device.queue.writeBuffer(lightUniformBuffer, 0, lightPosition);
         this.device.queue.writeBuffer(lightUniformBuffer, 12,
             new Float32Array([lightComponent.ambient]));
+        this.device.queue.writeBuffer(lightUniformBuffer, 16, lightViewProjMatrix);
         this.renderPass.setBindGroup(3, lightBindGroup);
 
         this.renderNode(scene);

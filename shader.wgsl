@@ -38,6 +38,7 @@ struct MaterialUniforms {
 struct LightUniforms {
     position : vec3f,
     ambient : f32,
+    lightViewProjMatrix : mat4x4<f32>,
 }
 
 @group(0) @binding(0) var<uniform> camera : CameraUniforms;
@@ -49,6 +50,9 @@ struct LightUniforms {
 @group(2) @binding(2) var baseSampler : sampler;
 
 @group(3) @binding(0) var<uniform> light : LightUniforms;
+
+@group(3) @binding(1) var shadowMap: texture_depth_2d;
+@group(3) @binding(2) var shadowSampler: sampler_comparison;
 
 @vertex
 fn vertex(input : VertexInput) -> VertexOutput {
@@ -75,7 +79,15 @@ fn fragment(input : FragmentInput) -> FragmentOutput {
     let materialColor = textureSample(baseTexture, baseSampler, input.texcoords) * material.baseFactor;
     let lambertFactor = vec4(vec3(lambert), 1);
     let ambientFactor = vec4(vec3(light.ambient), 1);
-    output.color = materialColor * (lambertFactor + ambientFactor);
+
+    
+    var shadowCoord = light.lightViewProjMatrix * model.modelMatrix * vec4(input.position, 1.0);
+    shadowCoord = shadowCoord / shadowCoord.w;
+    shadowCoord.x = shadowCoord.x * 0.5 + 0.5; // Transform to [0, 1] range
+    shadowCoord.y = shadowCoord.y * 0.5 + 0.5;
+    let isShadowed = textureSampleCompare(shadowMap, shadowSampler, shadowCoord.xy, shadowCoord.z - 0.007);
+
+    output.color = materialColor * (lambertFactor + ambientFactor) * (1.0 - isShadowed);
 
     return output;
 }
