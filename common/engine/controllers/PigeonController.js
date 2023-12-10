@@ -75,7 +75,3 @@ window.addEventListener('keydown', (e) => {;
 window.addEventListener('keyup', (e) => {
     keys[e.key] = false;
 });
-
-//za strelanje -> subscribe ob pritisku sproži
-//v main controller.addEventListener
-// class

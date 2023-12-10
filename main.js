@@ -276,7 +276,6 @@ function update(time, dt) {
     dropper.update(dt);
     if(startGame) {
         infinityTown.update(dt);
-
     }
     scene.traverse(node => {
         for (const component of node.components) {
