@@ -6,6 +6,7 @@ Navodila za igranje: <br />
  - puščice za premike levo, desno, gor in dol
  - presledek za streljanje z iztrebkom <br />
 <br />
+
 Run in your terminal:
 ```
 python -m http.server 3000
