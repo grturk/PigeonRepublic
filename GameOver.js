@@ -1,4 +1,4 @@
-;
+
 
 export class GameOver {
     constructor(scoringSystem) {
